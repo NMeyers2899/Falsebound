@@ -10,8 +10,7 @@ namespace MathForGames
     {
         private float _speed;
         private Vector3 _velocity;
-        private int _health = 2;
-        private float _originalSpeed;
+        private Actor _indicator;
 
         public float Speed
         {
@@ -25,22 +24,24 @@ namespace MathForGames
             set { _velocity = value; }
         }
 
-        public int Healths
+        public Actor Indicator
         {
-            get { return _health; }
+            get { return _indicator; }
         }
 
         public Player(float x, float y, float z, float speed, string name = "Player",
             Shape shape = Shape.CUBE) : base(x, y, z, name, shape)
         {
             _speed = speed;
-            _originalSpeed = _speed;
+            _indicator = new Actor(WorldPosition.X, WorldPosition.Y -1, WorldPosition.Z, 
+                "Indicator", Shape.SPHERE, this);
+            _indicator.SetScale(1, 0, 1);
+            _indicator.SetColor(new Vector4(0, 255, 0, 0));
+            AddChild(_indicator);
         }
 
         public override void Update(float deltaTime, Scene currentScene)
         {
-            int yDirection = 0;
-
             // Get the player input direction.
             int xDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_A))
                 + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_D));
@@ -48,7 +49,7 @@ namespace MathForGames
                 + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_S));
 
             // Create a vector that stores the move input.
-            Vector3 moveDirection = new Vector3(xDirection, yDirection, zDirection);
+            Vector3 moveDirection = new Vector3(xDirection, 0, zDirection);
 
             Velocity = moveDirection.Normalized * Speed * deltaTime;
 

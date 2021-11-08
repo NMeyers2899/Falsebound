@@ -100,6 +100,7 @@ namespace MathForGames
                     playerCharacter.WorldPosition.Y, playerCharacter.WorldPosition.Z);
             }
 
+
             _scenes[_currentSceneIndex].Update(deltaTime, _scenes[_currentSceneIndex]);
             _scenes[_currentSceneIndex].UpdateUI(deltaTime, _scenes[_currentSceneIndex]);
 
