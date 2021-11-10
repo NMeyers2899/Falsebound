@@ -110,7 +110,7 @@ namespace Falsebound
         public Vector3 Forward
         {
             get { return new Vector3(_rotation.M02, _rotation.M12, _rotation.M22).Normalized; }
-            set { _forward = value; }
+
         }
 
         public Collider Collider

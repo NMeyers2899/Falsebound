@@ -43,9 +43,6 @@ public override void Update(float deltaTime, Scene currentScene)
 
             Velocity = moveDirection.Normalized * Speed * deltaTime;
 
-            if (Velocity.Magnitude > 0)
-                Forward = Velocity.Normalized;
-
             LocalPosition += Velocity;
 
             Vector3 positionToMove = WorldPosition;
