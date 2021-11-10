@@ -4,7 +4,7 @@ using System.Text;
 using MathLibrary;
 using Raylib_cs;
 
-namespace MathForGames
+namespace Falsebound
 {
     public enum Shape
     {
@@ -109,7 +109,7 @@ namespace MathForGames
 
         public Vector3 Forward
         {
-            get { return new Vector3(_rotation.M02, _rotation.M12, _rotation.M22); }
+            get { return new Vector3(_rotation.M02, _rotation.M12, _rotation.M22).Normalized; }
             set { _forward = value; }
         }
 
@@ -146,7 +146,7 @@ namespace MathForGames
 
         public virtual void Update(float deltaTime, Scene currentScene)
         {
-            Console.WriteLine(Name + LocalPosition.X + " , " + LocalPosition.Y);
+            Console.WriteLine(Name + LocalPosition.X + " , " + LocalPosition.Y + ", " + LocalPosition.Z);
 
             UpdateTransforms();
         }
@@ -171,6 +171,9 @@ namespace MathForGames
                     break;
             }
 
+            if (Collider != null)
+                Collider.Draw();
+
             Raylib.DrawLine3D(startPos, endPos, Color.RED);
         }
 
@@ -181,7 +184,7 @@ namespace MathForGames
 
         public virtual void OnCollision(Actor actor, Scene currentScene)
         {
-
+           
         }
 
         /// <summary>

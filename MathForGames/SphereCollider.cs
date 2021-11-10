@@ -4,7 +4,7 @@ using System.Text;
 using MathLibrary;
 using Raylib_cs;
 
-namespace MathForGames
+namespace Falsebound
 {
     class SphereCollider : Collider
     {
@@ -16,7 +16,7 @@ namespace MathForGames
             set { _collisionRadius = value; }
         }
 
-        public SphereCollider(float collisionRadius, Actor owner) : base(owner, ColliderType.CIRCLE)
+        public SphereCollider(float collisionRadius, Actor owner) : base(owner, ColliderType.SPHERE)
         {
             _collisionRadius = collisionRadius;
         }
@@ -37,7 +37,7 @@ namespace MathForGames
                 return false;
 
             // Finds the distance between the two actors.
-            float distance = Vector3.Distance(other.Owner.LocalPosition, Owner.LocalPosition);
+            float distance = Vector3.Distance(other.Owner.WorldPosition, Owner.WorldPosition);
             // Finds the length of radii of the two actors combined.
             float combinedRadii = other.CollisionRadius + CollisionRadius;
 

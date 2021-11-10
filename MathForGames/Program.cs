@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MathForGames
+namespace Falsebound
 {
     class Program
     {

@@ -6,7 +6,7 @@ using System.Diagnostics;
 using MathLibrary;
 using Raylib_cs;
 
-namespace MathForGames
+namespace Falsebound
 {
     class Engine
     {
@@ -58,7 +58,7 @@ namespace MathForGames
             // Camera up vector(rotation towards target).
             _camera.up = new System.Numerics.Vector3(0, 1, 0);
             // Camera's field of view Y.
-            _camera.fovy = 70;
+            _camera.fovy = 60;
             // Camera mode type.
             _camera.projection = CameraProjection.CAMERA_PERSPECTIVE;
         }
@@ -76,10 +76,24 @@ namespace MathForGames
             InitializeCamera();
 
             Scene levelOne = new Scene();
-            Player playerCube = new Player(0, 2, 0, 15, "Cube");
-            playerCube.SetColor(new Vector4(255, 20, 20, 255));
+            Player player = new Player(0, 0, 0, 15);
+            player.SetColor(new Vector4(0, 200, 0, 255));
+            player.SetScale(1, 0.5f, 1);
+            SphereCollider playerCollider = new SphereCollider(1, player);
+            player.Collider = playerCollider;
 
-            levelOne.AddActor(playerCube);
+            Actor hand = new Actor(0, 20, 0, "Hand", Shape.SPHERE, player);
+            hand.SetColor(new Vector4(0, 200, 0, 255));
+            player.AddChild(hand);
+
+            Marshal marshal = new Marshal(10, 0, 0, 15);
+            marshal.SetColor(new Vector4(0, 0, 255, 255));
+            marshal.SetScale(2, 2, 2);
+            SphereCollider marshalCollider = new SphereCollider(2, marshal);
+            marshal.Collider = marshalCollider;
+
+            levelOne.AddActor(player);
+            levelOne.AddActor(marshal);
             AddScene(levelOne);
 
             _scenes[_currentSceneIndex].Start();
@@ -95,9 +109,9 @@ namespace MathForGames
             if (playerCharacter is Player)
             {
                 _camera.position = new System.Numerics.Vector3(playerCharacter.WorldPosition.X,
-                playerCharacter.WorldPosition.Y + 15, playerCharacter.WorldPosition.Z + 15);
+                playerCharacter.WorldPosition.Y + 20, playerCharacter.WorldPosition.Z + 25);
                 _camera.target = new System.Numerics.Vector3(playerCharacter.WorldPosition.X,
-                    playerCharacter.WorldPosition.Y, playerCharacter.WorldPosition.Z);
+                    0, playerCharacter.WorldPosition.Z);
             }
 
 

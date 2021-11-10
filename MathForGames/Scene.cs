@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Raylib_cs;
 
-namespace MathForGames
+namespace Falsebound
 {
     class Scene
     {

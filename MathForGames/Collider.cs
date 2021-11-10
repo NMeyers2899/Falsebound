@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MathForGames
+namespace Falsebound
 {
     public enum ColliderType
     {
-        CIRCLE,
+        SPHERE,
         AABB
     }
 
@@ -34,7 +34,7 @@ namespace MathForGames
 
         public bool CheckForCollision(Actor other)
         {
-            if (other.Collider.ColliderType == ColliderType.CIRCLE)
+            if (other.Collider.ColliderType == ColliderType.SPHERE)
                 return CheckSphereCollision((SphereCollider)other.Collider);
             else if (other.Collider.ColliderType == ColliderType.AABB)
                 return CheckCollisionAABB((AABBCollider)other.Collider);

@@ -4,13 +4,13 @@ using System.Text;
 using MathLibrary;
 using Raylib_cs;
 
-namespace MathForGames
+namespace Falsebound
 {
     class Player : Actor
     {
         private float _speed;
         private Vector3 _velocity;
-        private Actor _indicator;
+        private Marshal _selectedMarshal = null;
 
         public float Speed
         {
@@ -24,23 +24,13 @@ namespace MathForGames
             set { _velocity = value; }
         }
 
-        public Actor Indicator
-        {
-            get { return _indicator; }
-        }
-
         public Player(float x, float y, float z, float speed, string name = "Player",
-            Shape shape = Shape.CUBE) : base(x, y, z, name, shape)
+            Shape shape = Shape.SPHERE) : base(x, y, z, name, shape)
         {
             _speed = speed;
-            _indicator = new Actor(WorldPosition.X, WorldPosition.Y -1, WorldPosition.Z, 
-                "Indicator", Shape.SPHERE, this);
-            _indicator.SetScale(1, 0, 1);
-            _indicator.SetColor(new Vector4(0, 255, 0, 0));
-            AddChild(_indicator);
         }
 
-        public override void Update(float deltaTime, Scene currentScene)
+public override void Update(float deltaTime, Scene currentScene)
         {
             // Get the player input direction.
             int xDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_A))
@@ -57,20 +47,34 @@ namespace MathForGames
                 Forward = Velocity.Normalized;
 
             LocalPosition += Velocity;
+
+            if(_selectedMarshal != null)
+            {
+                System.Numerics.Vector3 startPos = new System.Numerics.Vector3(_selectedMarshal.WorldPosition.X,
+                _selectedMarshal.WorldPosition.Y, _selectedMarshal.WorldPosition.Z);
+                System.Numerics.Vector3 endPos = new System.Numerics.Vector3(WorldPosition.X + Forward.X * 10,
+                    WorldPosition.Y + Forward.Y * 10, WorldPosition.Z + Forward.Z * 10);
+
+                Raylib.DrawLine3D(startPos, endPos, Color.GREEN);
+            }
+
             base.Update(deltaTime, currentScene);
         }
+        
 
         public override void Draw()
         {
             base.Draw();
-
-            if (Collider != null)
-                Collider.Draw();
         }
 
         public override void OnCollision(Actor actor, Scene currentScene)
         {
-            
+            if(actor is Marshal)
+            {
+                Console.WriteLine("Collision Occured");
+                if (Raylib.IsKeyPressed(KeyboardKey.KEY_F))
+                    _selectedMarshal = actor as Marshal;
+            }
         }
     }
 }
