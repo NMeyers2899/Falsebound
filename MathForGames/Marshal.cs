@@ -8,9 +8,11 @@ namespace Falsebound
 {
     class Marshal : Actor
     {
+        private Monster[] _team = new Monster[3];
         private float _speed;
         private Vector3 _velocity;
         private Vector3 _destination;
+        private int _score;
 
         public float Speed
         {
@@ -28,6 +30,17 @@ namespace Falsebound
         {
             get { return _destination; }
             set { _destination = value; }
+        }
+
+        public Monster[] Team
+        {
+            get { return _team; }
+        }
+
+        public int Score
+        {
+            get { return _score; }
+            set { _score = value; }
         }
 
         public Marshal(float x, float y, float z, float speed, string name = "Marshal",
@@ -64,6 +77,23 @@ namespace Falsebound
         {
             if (actor is Marshal)
                 Engine.MoveToBattleScene();
+        }
+
+        public void AddTeamMemeber(Monster monster, int index)
+        {
+            _team[index] = monster;
+        }
+
+        public bool RemoveTeamMember(int index)
+        {
+            bool removedMonster = false;
+
+            _team[index] = new Monster();
+
+            if (_team[index].Name == "")
+                removedMonster = true;
+
+            return removedMonster;
         }
     }
 }
