@@ -48,6 +48,14 @@ public override void Update(float deltaTime, Scene currentScene)
 
             LocalPosition += Velocity;
 
+            Vector3 positionToMove = WorldPosition;
+
+            if (_selectedMarshal != null && Raylib.IsKeyPressed(KeyboardKey.KEY_F))
+            {
+                _selectedMarshal.Destination = positionToMove;
+                _selectedMarshal = null;
+            }
+
             base.Update(deltaTime, currentScene);
         }
         

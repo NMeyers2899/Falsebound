@@ -10,6 +10,7 @@ namespace Falsebound
     {
         private float _speed;
         private Vector3 _velocity;
+        private Vector3 _destination;
 
         public float Speed
         {
@@ -23,14 +24,30 @@ namespace Falsebound
             set { _velocity = value; }
         }
 
+        public Vector3 Destination
+        {
+            get { return _destination; }
+            set { _destination = value; }
+        }
+
         public Marshal(float x, float y, float z, float speed, string name = "Marshal",
             Shape shape = Shape.CUBE) : base(x, y, z, name, shape)
         {
             _speed = speed;
+            _destination = new Vector3(x, y, z);
         }
 
         public override void Update(float deltaTime, Scene currentScene)
         {
+            if(Destination != WorldPosition)
+            {
+                Vector3 moveDirection = Destination - LocalPosition;
+
+                Velocity = moveDirection.Normalized * Speed * deltaTime;
+
+                LocalPosition += Velocity;
+            }
+
             base.Update(deltaTime, currentScene);
         }
 
