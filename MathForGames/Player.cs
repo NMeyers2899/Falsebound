@@ -48,16 +48,6 @@ public override void Update(float deltaTime, Scene currentScene)
 
             LocalPosition += Velocity;
 
-            if(_selectedMarshal != null)
-            {
-                System.Numerics.Vector3 startPos = new System.Numerics.Vector3(_selectedMarshal.WorldPosition.X,
-                _selectedMarshal.WorldPosition.Y, _selectedMarshal.WorldPosition.Z);
-                System.Numerics.Vector3 endPos = new System.Numerics.Vector3(WorldPosition.X + Forward.X * 10,
-                    WorldPosition.Y + Forward.Y * 10, WorldPosition.Z + Forward.Z * 10);
-
-                Raylib.DrawLine3D(startPos, endPos, Color.GREEN);
-            }
-
             base.Update(deltaTime, currentScene);
         }
         
@@ -65,6 +55,16 @@ public override void Update(float deltaTime, Scene currentScene)
         public override void Draw()
         {
             base.Draw();
+
+            if (_selectedMarshal != null)
+            {
+                System.Numerics.Vector3 startPos = new System.Numerics.Vector3(_selectedMarshal.WorldPosition.X,
+                _selectedMarshal.WorldPosition.Y, _selectedMarshal.WorldPosition.Z);
+                System.Numerics.Vector3 endPos = new System.Numerics.Vector3(WorldPosition.X,
+                    WorldPosition.Y, WorldPosition.Z);
+
+                Raylib.DrawLine3D(startPos, endPos, Color.GREEN);
+            }
         }
 
         public override void OnCollision(Actor actor, Scene currentScene)
