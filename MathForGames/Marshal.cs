@@ -41,11 +41,14 @@ namespace Falsebound
         {
             Vector3 positionDistance = new Vector3(1, 0, 1);
 
-            Vector3 moveDirection = Destination - WorldPosition;
+            if (Destination - LocalPosition > 1 || Destination - LocalPosition < -1)
+            {
+                Vector3 moveDirection = Destination - LocalPosition;
 
-            Velocity = moveDirection.Normalized * Speed * deltaTime;
+                Velocity = moveDirection.Normalized * Speed * deltaTime;
 
-            LocalPosition += Velocity;
+                Translate(Velocity.X, Velocity.Y, Velocity.Z);
+            }
             
             base.Update(deltaTime, currentScene);
         }

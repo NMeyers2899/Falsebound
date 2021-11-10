@@ -43,7 +43,9 @@ public override void Update(float deltaTime, Scene currentScene)
 
             Velocity = moveDirection.Normalized * Speed * deltaTime;
 
-            LocalPosition += Velocity;
+            LookAt(Velocity);
+
+            Translate(Velocity.X, Velocity.Y, Velocity.Z);
 
             Vector3 positionToMove = WorldPosition;
 
