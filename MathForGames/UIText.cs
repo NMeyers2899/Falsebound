@@ -61,7 +61,7 @@ namespace Falsebound
         /// <param name="width"> The width of the text box. </param>
         /// <param name="height"> The height of the text box. </param>
         /// <param name="text"> The text being displayed. </param>
-        public UIText(float x, float y, float z, string name, Color color, int width, int height, int fontSize,
+        public UIText(float x, float y, float z, string name, int width, int height, int fontSize,
             string text = "") : base(x, y, z, name)
         {
             _text = text;
@@ -70,7 +70,7 @@ namespace Falsebound
 
             _font = Raylib.LoadFont("resources/fonts/alagard.png");
             _fontSize = fontSize;
-            FontColor = color;
+            FontColor = ShapeColor;
         }
 
         /// <summary>
@@ -81,7 +81,8 @@ namespace Falsebound
             // Creates a new rectangle that will act as the borders for the text.
             Rectangle textBox = new Rectangle(LocalPosition.X, LocalPosition.Y, Width, Height);
             // Draws the text box for the text.
-            Raylib.DrawTextRec(_font, Text, textBox, FontSize, 1, true, Color.WHITE);
+            Raylib.DrawRectangleRec(textBox, Color.GRAY);
+            Raylib.DrawTextRec(_font, Text, textBox, FontSize, 1, true, Color.BLACK);
         }
     }
 }

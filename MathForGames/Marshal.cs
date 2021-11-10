@@ -43,15 +43,16 @@ namespace Falsebound
             set { _score = value; }
         }
 
-        public Marshal(float x, float y, float z, float speed, string name = "Marshal",
+        public Marshal(float x, float y, float z, string name = "Marshal",
             Shape shape = Shape.CUBE) : base(x, y, z, name, shape)
         {
-            _speed = speed;
             _destination = new Vector3(x, y, z);
         }
 
         public override void Update(float deltaTime, Scene currentScene)
         {
+            _speed = _team[0].Speed;
+
             LookAt(Destination);
 
             if(Destination.X - WorldPosition.X > 1 || Destination.X - WorldPosition.X < -1 || 

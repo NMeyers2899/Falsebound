@@ -24,6 +24,11 @@ namespace Falsebound
             set { _velocity = value; }
         }
 
+        public Marshal SelectedMarshal
+        {
+            get { return _selectedMarshal; }
+        }
+
         public Player(float x, float y, float z, float speed, string name = "Player",
             Shape shape = Shape.SPHERE) : base(x, y, z, name, shape)
         {
