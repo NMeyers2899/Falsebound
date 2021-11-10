@@ -39,9 +39,10 @@ namespace Falsebound
 
         public override void Update(float deltaTime, Scene currentScene)
         {
-            Vector3 positionDistance = new Vector3(1, 0, 1);
+            LookAt(Destination);
 
-            if (Destination - LocalPosition > 1 || Destination - LocalPosition < -1)
+            if(Destination.X - WorldPosition.X > 1 || Destination.X - WorldPosition.X < -1 || 
+                Destination.Z - WorldPosition.Z > 1 || Destination.Z - WorldPosition.Z < -1)
             {
                 Vector3 moveDirection = Destination - LocalPosition;
 
@@ -49,6 +50,7 @@ namespace Falsebound
 
                 Translate(Velocity.X, Velocity.Y, Velocity.Z);
             }
+            
             
             base.Update(deltaTime, currentScene);
         }
@@ -61,7 +63,7 @@ namespace Falsebound
         public override void OnCollision(Actor actor, Scene currentScene)
         {
             if (actor is Marshal)
-                Engine.MoveToNextScene();
+                Engine.MoveToBattleScene();
         }
     }
 }

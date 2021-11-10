@@ -74,33 +74,35 @@ namespace Falsebound
             Raylib.InitWindow(800, 450, "Math For Games");
             Raylib.SetTargetFPS(60);
             InitializeCamera();
+
             // Initalizes the overworld scene.
             Scene overworld = new Scene();
 
+            // Initalizes the battle scene.
             Scene battle = new Scene();
 
             // Initalizes the player.
             Player player = new Player(0, 0, 0, 15);
-            player.SetColor(new Vector4(0, 200, 0, 255));
+            player.SetColor(new Vector4(0, 200, 0, 150));
             player.SetScale(1, 0.5f, 1);
             SphereCollider playerCollider = new SphereCollider(1, player);
             player.Collider = playerCollider;
 
             // Initalizes the actor that hovers above the player.
             Actor hand = new Actor(0, 20, 0, "Hand", Shape.SPHERE, player);
-            hand.SetColor(new Vector4(0, 200, 0, 255));
+            hand.SetColor(new Vector4(0, 200, 0, 150));
             player.AddChild(hand);
 
             // Initalizes the allied marshal.
-            Marshal marshal = new Marshal(10, 0, 0, 15);
+            Marshal marshal = new Marshal(10, 0, 0, 15, "Vizza");
             marshal.SetColor(new Vector4(0, 0, 255, 255));
             marshal.SetScale(2, 2, 2);
             SphereCollider marshalCollider = new SphereCollider(2, marshal);
             marshal.Collider = marshalCollider;
 
             // Initalizes the enemy marshal.
-            Marshal enemyMarshal = new Marshal(-10, 0, 20, 15);
-            enemyMarshal.SetColor(new Vector4(0, 0, 255, 255));
+            Marshal enemyMarshal = new Marshal(-10, 0, 20, 15, "Haladar");
+            enemyMarshal.SetColor(new Vector4(255, 0, 0, 255));
             enemyMarshal.SetScale(2, 2, 2);
             SphereCollider enemyMarshalCollider = new SphereCollider(2, enemyMarshal);
             enemyMarshal.Collider = enemyMarshalCollider;
@@ -137,7 +139,9 @@ namespace Falsebound
 
 
             _scenes[_currentSceneIndex].Update(deltaTime, _scenes[_currentSceneIndex]);
-            _scenes[_currentSceneIndex].UpdateUI(deltaTime, _scenes[_currentSceneIndex]);
+
+            if (_scenes[_currentSceneIndex].UIElements != null)
+                 _scenes[_currentSceneIndex].UpdateUI(deltaTime, _scenes[_currentSceneIndex]);
 
             // Keeps inputs from piling up, allowing one input per update.
             while (Console.KeyAvailable)
@@ -167,7 +171,7 @@ namespace Falsebound
         /// </summary>
         private void End()
         {
-            _scenes[_currentSceneIndex].End();
+            _scenes[(int)_currentSceneIndex].End();
             Raylib.CloseWindow();
         }
 
@@ -218,9 +222,9 @@ namespace Falsebound
             _applicationShouldClose = true;
         }
 
-        public static void MoveToNextScene()
+        public static void MoveToBattleScene()
         {
-            _currentSceneIndex++;
+            _currentSceneIndex = 1;
         }
     }
 }

@@ -18,6 +18,11 @@ namespace Falsebound
             get { return _actors; }
         }
 
+        public Actor[] UIElements
+        {
+            get { return _UIElements; }
+        }
+
         public Scene()
         {
             _actors = new Actor[0];

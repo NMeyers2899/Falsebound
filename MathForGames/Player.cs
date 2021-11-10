@@ -43,17 +43,22 @@ public override void Update(float deltaTime, Scene currentScene)
 
             Velocity = moveDirection.Normalized * Speed * deltaTime;
 
-            LookAt(Velocity);
+            LookAt(LocalPosition + moveDirection);
 
             Translate(Velocity.X, Velocity.Y, Velocity.Z);
 
-            Vector3 positionToMove = WorldPosition;
-
             if (_selectedMarshal != null && Raylib.IsKeyPressed(KeyboardKey.KEY_F))
             {
+                Vector3 positionToMove = WorldPosition;
                 _selectedMarshal.Destination = positionToMove;
                 _selectedMarshal = null;
             }
+
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_E))
+                SetScale(2, 2, 2);
+
+            if(Raylib.IsKeyDown(KeyboardKey.KEY_R))
+                SetScale(1, 0.5f, 1);
 
             base.Update(deltaTime, currentScene);
         }
@@ -76,12 +81,8 @@ public override void Update(float deltaTime, Scene currentScene)
 
         public override void OnCollision(Actor actor, Scene currentScene)
         {
-            if(actor is Marshal)
-            {
-                Console.WriteLine("Collision Occured");
-                if (Raylib.IsKeyPressed(KeyboardKey.KEY_F))
-                    _selectedMarshal = actor as Marshal;
-            }
+            if(actor is Marshal && Raylib.IsKeyPressed(KeyboardKey.KEY_F))
+                _selectedMarshal = actor as Marshal;
         }
     }
 }
