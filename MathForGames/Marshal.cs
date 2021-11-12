@@ -77,7 +77,10 @@ namespace Falsebound
         public override void OnCollision(Actor actor, Scene currentScene)
         {
             if (actor is Marshal)
-                Engine.MoveToBattleScene();
+            {
+                Engine.MoveToBattleScene(Team, (actor as Marshal).Team);
+            }
+                
         }
 
         public void AddTeamMemeber(Monster monster, int index)

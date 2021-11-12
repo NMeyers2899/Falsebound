@@ -12,7 +12,7 @@ namespace Falsebound
     {
         private static bool _applicationShouldClose = false;
         private static int _currentSceneIndex;
-        private Scene[] _scenes = new Scene[0];
+        private static Scene[] _scenes = new Scene[0];
         private Stopwatch _stopWatch = new Stopwatch();
         private Camera3D _camera = new Camera3D();
 
@@ -79,15 +79,26 @@ namespace Falsebound
             Scene overworld = new Scene();
 
             // Initalizes the battle scene.
-            Scene battle = new Scene();
+            BattleScene battle = new BattleScene();
 
             // Initalizes the monsters.
             Monster wompus = new Monster(0, 0, 0, 10, 120, 30, 25, 3, "Wompus");
+            wompus.SetScale(1, 1, 1);
+
             Monster skelly = new Monster(0, 0, 0, 15, 115, 37, 15, 4, "Skelly");
+            skelly.SetScale(1, 1, 1);
+
             Monster thaeve = new Monster(0, 0, 0, 22, 74, 21, 16, 3, "Thaeve");
+            thaeve.SetScale(1, 1, 1);
+
             Monster aLittleDude = new Monster(0, 0, 0, 16, 92, 23, 16, 4, "A Little Dude");
+            aLittleDude.SetScale(1, 1, 1);
+
             Monster facelessHorror = new Monster(0, 0, 0, 10, 112, 29, 28, 4, "Faceless Horror");
+            facelessHorror.SetScale(1, 1, 1);
+
             Monster thwompus = new Monster(0, 0, 0, 8, 140, 20, 38, 2, "Thwompus");
+            thwompus.SetScale(1, 1, 1);
 
             // Initalizes the player.
             Player player = new Player(0, 0, 0, 25);
@@ -121,6 +132,16 @@ namespace Falsebound
             enemyMarshal.AddTeamMemeber(facelessHorror, 1);
             enemyMarshal.AddTeamMemeber(thwompus, 2);
 
+            // Initalizes the enemy marshal.
+            Marshal enemyMarshal2 = new Marshal(14, 0, 12, "Braxxa");
+            enemyMarshal2.SetColor(new Vector4(255, 0, 0, 255));
+            enemyMarshal2.SetScale(2, 2, 2);
+            SphereCollider enemyMarshal2Collider = new SphereCollider(2, enemyMarshal2);
+            enemyMarshal2.Collider = enemyMarshal2Collider;
+            enemyMarshal2.AddTeamMemeber(thwompus, 0);
+            enemyMarshal2.AddTeamMemeber(skelly, 1);
+            enemyMarshal2.AddTeamMemeber(wompus, 2);
+
             //Initializes the text box.
             UIText marshalStats = new UIText(10, 5, 0, "Stat Box", 100, 300, 12, "");
 
@@ -128,6 +149,7 @@ namespace Falsebound
             overworld.AddActor(player);
             overworld.AddActor(marshal);
             overworld.AddActor(enemyMarshal);
+            overworld.AddActor(enemyMarshal2);
             overworld.AddUIElement(marshalStats);
 
             // Adds the required actors to the battle scene.
@@ -257,9 +279,10 @@ namespace Falsebound
             _applicationShouldClose = true;
         }
 
-        public static void MoveToBattleScene()
+        public static void MoveToBattleScene(Monster[] teamOne, Monster[] teamTwo)
         {
             _currentSceneIndex = 1;
+            (_scenes[_currentSceneIndex] as BattleScene).StartBattle(teamOne, teamTwo);
         }
     }
 }

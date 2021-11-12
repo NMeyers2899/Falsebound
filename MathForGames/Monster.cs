@@ -74,11 +74,19 @@ namespace Falsebound
             _speed = 0;
         }
 
+        /// <summary>
+        /// This monster goes to deal its damage to the target.
+        /// </summary>
+        /// <param name="target"> The monster being attacked. </param>
         public void Attack(Monster target)
         {
             target.TakeDamage(_attackPower);
         }
 
+        /// <summary>
+        /// This monster reduces its health based on the amount of damage being dealt.
+        /// </summary>
+        /// <param name="damage"> The damage about to be taken that will be reduced. </param>
         public void TakeDamage(int damage)
         {
             if (damage - _defense > _health)
