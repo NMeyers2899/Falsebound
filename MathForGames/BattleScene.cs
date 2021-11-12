@@ -11,6 +11,7 @@ namespace Falsebound
         private Marshal _marshalTwo;
         private Monster[] _teamTwo = new Monster[3];
         private Monster[] _turnOrder = new Monster[6];
+        private Monster _currentMonster;
 
         public BattleScene() : base() { }
 
