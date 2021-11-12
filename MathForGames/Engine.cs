@@ -86,22 +86,22 @@ namespace Falsebound
             wompus.SetColor(new Vector4(220, 120, 54, 255));
 
             Monster skelly = new Monster(0, 0, 0, 15, 115, 37, 15, 4, "Skelly");
-            skelly.SetColor(new Vector4(220, 120, 54, 255));
+            skelly.SetColor(new Vector4(220, 120, 0, 255));
 
             Monster thaeve = new Monster(0, 0, 0, 22, 74, 21, 16, 3, "Thaeve");
-            thaeve.SetColor(new Vector4(220, 120, 54, 255));
+            thaeve.SetColor(new Vector4(120, 0, 54, 255));
 
             Monster aLittleDude = new Monster(0, 0, 0, 16, 92, 23, 16, 4, "A Little Dude");
-            aLittleDude.SetColor(new Vector4(220, 120, 54, 255));
+            aLittleDude.SetColor(new Vector4(150, 120, 0, 255));
 
             Monster facelessHorror = new Monster(0, 0, 0, 10, 112, 29, 28, 4, "Faceless Horror");
-            facelessHorror.SetColor(new Vector4(220, 120, 54, 255));
+            facelessHorror.SetColor(new Vector4(0, 120, 0, 255));
 
             Monster thwompus = new Monster(0, 0, 0, 8, 140, 20, 38, 2, "Thwompus");
-            thwompus.SetColor(new Vector4(220, 120, 54, 255));
+            thwompus.SetColor(new Vector4(220, 0, 225, 255));
 
             // Initalizes the player.
-            Player player = new Player(0, 0, 0, 25);
+            Player player = new Player(0, 1, 0, 25);
             player.SetColor(new Vector4(0, 200, 0, 150));
             player.SetScale(1, 0.5f, 1);
             SphereCollider playerCollider = new SphereCollider(1, player);
@@ -113,7 +113,7 @@ namespace Falsebound
             player.AddChild(hand);
 
             // Initalizes the allied marshal.
-            Marshal marshal = new Marshal(10, 0, 0, "Vizza");
+            Marshal marshal = new Marshal(10, 1, 0, "Vizza");
             marshal.SetColor(new Vector4(0, 0, 255, 255));
             marshal.SetScale(2, 2, 2);
             SphereCollider marshalCollider = new SphereCollider(2, marshal);
@@ -123,7 +123,7 @@ namespace Falsebound
             marshal.AddTeamMemeber(thaeve, 2);
 
             // Initalizes the enemy marshal.
-            Marshal enemyMarshal = new Marshal(-10, 0, 20, "Haladar");
+            Marshal enemyMarshal = new Marshal(-10, 1, 20, "Haladar");
             enemyMarshal.SetColor(new Vector4(255, 0, 0, 255));
             enemyMarshal.SetScale(2, 2, 2);
             SphereCollider enemyMarshalCollider = new SphereCollider(2, enemyMarshal);
@@ -132,16 +132,6 @@ namespace Falsebound
             enemyMarshal.AddTeamMemeber(facelessHorror, 1);
             enemyMarshal.AddTeamMemeber(thwompus, 2);
 
-            // Initalizes the enemy marshal.
-            Marshal enemyMarshal2 = new Marshal(14, 0, 12, "Braxxa");
-            enemyMarshal2.SetColor(new Vector4(255, 0, 0, 255));
-            enemyMarshal2.SetScale(2, 2, 2);
-            SphereCollider enemyMarshal2Collider = new SphereCollider(2, enemyMarshal2);
-            enemyMarshal2.Collider = enemyMarshal2Collider;
-            enemyMarshal2.AddTeamMemeber(thwompus, 0);
-            enemyMarshal2.AddTeamMemeber(skelly, 1);
-            enemyMarshal2.AddTeamMemeber(wompus, 2);
-
             //Initializes the text box.
             UIText marshalStats = new UIText(10, 5, 0, "Stat Box", 100, 300, 12, "");
 
@@ -149,11 +139,7 @@ namespace Falsebound
             overworld.AddActor(player);
             overworld.AddActor(marshal);
             overworld.AddActor(enemyMarshal);
-            overworld.AddActor(enemyMarshal2);
             overworld.AddUIElement(marshalStats);
-
-            // Adds the required actors to the battle scene.
-            battle.AddActor(player);
 
             // Adds the scenes to the engine.
             AddScene(overworld);
@@ -170,10 +156,18 @@ namespace Falsebound
         {
             Actor playerCharacter = _scenes[0].Actors[0];
 
-            _camera.position = new System.Numerics.Vector3(playerCharacter.WorldPosition.X,
-            playerCharacter.WorldPosition.Y + 20, playerCharacter.WorldPosition.Z + 25);
-            _camera.target = new System.Numerics.Vector3(playerCharacter.WorldPosition.X,
-                0, playerCharacter.WorldPosition.Z);
+            if(!((_scenes[_currentSceneIndex]) is BattleScene))
+            {
+                _camera.position = new System.Numerics.Vector3(playerCharacter.WorldPosition.X,
+                            playerCharacter.WorldPosition.Y + 20, playerCharacter.WorldPosition.Z + 25);
+                _camera.target = new System.Numerics.Vector3(playerCharacter.WorldPosition.X,
+                    0, playerCharacter.WorldPosition.Z);
+            }
+            else
+            {
+                _camera.position = new System.Numerics.Vector3(10, 4, -10);
+                _camera.target = new System.Numerics.Vector3(0, 1, 0);
+            }
 
             if((playerCharacter as Player).SelectedMarshal != null)
             {
