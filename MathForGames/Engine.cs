@@ -83,22 +83,22 @@ namespace Falsebound
 
             // Initalizes the monsters.
             Monster wompus = new Monster(0, 0, 0, 10, 120, 30, 25, 3, "Wompus");
-            wompus.SetScale(1, 1, 1);
+            wompus.SetColor(new Vector4(220, 120, 54, 255));
 
             Monster skelly = new Monster(0, 0, 0, 15, 115, 37, 15, 4, "Skelly");
-            skelly.SetScale(1, 1, 1);
+            skelly.SetColor(new Vector4(220, 120, 54, 255));
 
             Monster thaeve = new Monster(0, 0, 0, 22, 74, 21, 16, 3, "Thaeve");
-            thaeve.SetScale(1, 1, 1);
+            thaeve.SetColor(new Vector4(220, 120, 54, 255));
 
             Monster aLittleDude = new Monster(0, 0, 0, 16, 92, 23, 16, 4, "A Little Dude");
-            aLittleDude.SetScale(1, 1, 1);
+            aLittleDude.SetColor(new Vector4(220, 120, 54, 255));
 
             Monster facelessHorror = new Monster(0, 0, 0, 10, 112, 29, 28, 4, "Faceless Horror");
-            facelessHorror.SetScale(1, 1, 1);
+            facelessHorror.SetColor(new Vector4(220, 120, 54, 255));
 
             Monster thwompus = new Monster(0, 0, 0, 8, 140, 20, 38, 2, "Thwompus");
-            thwompus.SetScale(1, 1, 1);
+            thwompus.SetColor(new Vector4(220, 120, 54, 255));
 
             // Initalizes the player.
             Player player = new Player(0, 0, 0, 25);
@@ -158,6 +158,7 @@ namespace Falsebound
             // Adds the scenes to the engine.
             AddScene(overworld);
             AddScene(battle);
+            //MoveToBattleScene(marshal.Team, enemyMarshal.Team);
 
             _scenes[_currentSceneIndex].Start();
         }

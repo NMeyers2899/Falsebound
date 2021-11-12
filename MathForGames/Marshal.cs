@@ -76,7 +76,7 @@ namespace Falsebound
 
         public override void OnCollision(Actor actor, Scene currentScene)
         {
-            if (actor is Marshal)
+            if (actor is Marshal && !(currentScene is BattleScene))
             {
                 Engine.MoveToBattleScene(Team, (actor as Marshal).Team);
             }
