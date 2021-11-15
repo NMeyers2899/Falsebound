@@ -87,16 +87,6 @@ namespace Falsebound
         }
 
         /// <summary>
-        /// Adds a team member to a specific index in the marshal's team.
-        /// </summary>
-        /// <param name="monster"> The monster being added to the team. </param>
-        /// <param name="index"> The index in which the monster is being added. </param>
-        public void AddTeamMemeber(Monster monster, int index)
-        {
-            _team[index] = monster;
-        }
-
-        /// <summary>
         /// Removes a team member from the marshal's team.
         /// </summary>
         /// <param name="index"> The index at which the monster will be removed. </param>

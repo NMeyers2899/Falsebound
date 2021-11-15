@@ -14,7 +14,7 @@ namespace Falsebound
             _player = player;
 
             //Initializes the text box.
-            _hudText = new UIText(10, 5, 0, "Hud Text", 100, 300, 12, "");
+            _hudText = new UIText(10, 5, 0, "Hud Text", 150, 300, 12, "");
         }
 
         public override void Start()

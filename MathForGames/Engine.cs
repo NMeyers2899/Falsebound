@@ -88,6 +88,7 @@ namespace Falsebound
             // Initalizes the monsters.
             Monster wompus = new Monster(0, 0, 0, 10, 120, 30, 25, 3, "Wompus");
             wompus.SetColor(new Vector4(220, 120, 54, 255));
+            wompus.SetScale(2, 2, 2);
 
             Monster skelly = new Monster(0, 0, 0, 15, 115, 37, 15, 4, "Skelly");
             skelly.SetColor(new Vector4(220, 120, 0, 255));
@@ -97,12 +98,18 @@ namespace Falsebound
 
             Monster aLittleDude = new Monster(0, 0, 0, 16, 92, 23, 16, 4, "A Little Dude");
             aLittleDude.SetColor(new Vector4(150, 120, 0, 255));
+            aLittleDude.SetScale(1, 0.7f, 0.5f);
+
+            Monster aBigDude = new Monster(0, 0, 0, 16, 92, 23, 16, 4, "A Big Dude");
+            aBigDude.SetColor(new Vector4(150, 120, 0, 255));
+            aBigDude.SetScale(2, 1.5f, 2);
 
             Monster facelessHorror = new Monster(0, 0, 0, 10, 112, 29, 28, 4, "Faceless Horror");
             facelessHorror.SetColor(new Vector4(0, 120, 0, 255));
 
             Monster thwompus = new Monster(0, 0, 0, 8, 140, 20, 38, 2, "Thwompus");
             thwompus.SetColor(new Vector4(220, 0, 225, 255));
+            thwompus.SetScale(1.5f, 2, 1.5f);
 
             // Initalizes the player.
             Player player = new Player(0, 1, 0, 25);
@@ -123,8 +130,8 @@ namespace Falsebound
             SphereCollider marshalCollider = new SphereCollider(2, marshal);
             marshal.Collider = marshalCollider;
             marshal.Team[0] = Monster.CopyMonster(marshal.Team[0], wompus);
-            marshal.Team[1] = Monster.CopyMonster(marshal.Team[1], wompus);
-            marshal.Team[2] = Monster.CopyMonster(marshal.Team[2], wompus);
+            marshal.Team[1] = Monster.CopyMonster(marshal.Team[1], skelly);
+            marshal.Team[2] = Monster.CopyMonster(marshal.Team[2], thaeve);
 
             // Initalizes the enemy marshal.
             Marshal enemyMarshal = new Marshal(-10, 1, 20, "Haladar");
@@ -132,9 +139,29 @@ namespace Falsebound
             enemyMarshal.SetScale(2, 2, 2);
             SphereCollider enemyMarshalCollider = new SphereCollider(2, enemyMarshal);
             enemyMarshal.Collider = enemyMarshalCollider;
-            enemyMarshal.AddTeamMemeber(aLittleDude, 0);
-            enemyMarshal.AddTeamMemeber(facelessHorror, 1);
-            enemyMarshal.AddTeamMemeber(thwompus, 2);
+            enemyMarshal.Team[0] = Monster.CopyMonster(enemyMarshal.Team[0], aLittleDude);
+            enemyMarshal.Team[1] = Monster.CopyMonster(enemyMarshal.Team[1], facelessHorror);
+            enemyMarshal.Team[2] = Monster.CopyMonster(enemyMarshal.Team[2], thwompus);
+
+            // Initalizes the second enemy marshal.
+            Marshal enemyMarshal2 = new Marshal(10, 1, 20, "xXxWompusMasterxXx");
+            enemyMarshal2.SetColor(new Vector4(255, 0, 0, 255));
+            enemyMarshal2.SetScale(2, 2, 2);
+            SphereCollider enemyMarshal2Collider = new SphereCollider(2, enemyMarshal2);
+            enemyMarshal2.Collider = enemyMarshal2Collider;
+            enemyMarshal2.Team[0] = Monster.CopyMonster(enemyMarshal2.Team[0], wompus);
+            enemyMarshal2.Team[1] = Monster.CopyMonster(enemyMarshal2.Team[1], wompus);
+            enemyMarshal2.Team[2] = Monster.CopyMonster(enemyMarshal2.Team[2], thwompus);
+
+            // Initalizes the third enemy marshal.
+            Marshal enemyMarshal3 = new Marshal(15, 1, -20, "A Gigantic Dude");
+            enemyMarshal3.SetColor(new Vector4(255, 0, 0, 255));
+            enemyMarshal3.SetScale(2, 2, 2);
+            SphereCollider enemyMarshal3Collider = new SphereCollider(2, enemyMarshal3);
+            enemyMarshal3.Collider = enemyMarshal3Collider;
+            enemyMarshal3.Team[0] = Monster.CopyMonster(enemyMarshal3.Team[0], aBigDude);
+            enemyMarshal3.Team[1] = Monster.CopyMonster(enemyMarshal3.Team[1], aLittleDude);
+            enemyMarshal3.Team[2] = Monster.CopyMonster(enemyMarshal3.Team[2], aLittleDude);
 
             // Creates the hud.
             Hud hud = new Hud(player);
@@ -143,6 +170,8 @@ namespace Falsebound
             overworld.AddActor(player);
             overworld.AddActor(marshal);
             overworld.AddActor(enemyMarshal);
+            overworld.AddActor(enemyMarshal2);
+            overworld.AddActor(enemyMarshal3);
             overworld.AddActor(hud);
 
             _scenes[_currentSceneIndex].Start();
