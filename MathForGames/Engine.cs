@@ -81,6 +81,10 @@ namespace Falsebound
             // Initalizes the battle scene.
             BattleScene battle = new BattleScene();
 
+            // Adds the scenes to the engine.
+            AddScene(overworld);
+            AddScene(battle);
+
             // Initalizes the monsters.
             Monster wompus = new Monster(0, 0, 0, 10, 120, 30, 25, 3, "Wompus");
             wompus.SetColor(new Vector4(220, 120, 54, 255));
@@ -132,18 +136,14 @@ namespace Falsebound
             enemyMarshal.AddTeamMemeber(facelessHorror, 1);
             enemyMarshal.AddTeamMemeber(thwompus, 2);
 
-            //Initializes the text box.
-            UIText marshalStats = new UIText(10, 5, 0, "Stat Box", 100, 300, 12, "");
+            // Creates the hud.
+            Hud hud = new Hud(player);
 
             // Adds the required actors to the overworld scene.
             overworld.AddActor(player);
             overworld.AddActor(marshal);
             overworld.AddActor(enemyMarshal);
-            overworld.AddUIElement(marshalStats);
-
-            // Adds the scenes to the engine.
-            AddScene(overworld);
-            AddScene(battle);
+            overworld.AddActor(hud);
 
             _scenes[_currentSceneIndex].Start();
         }
@@ -167,23 +167,6 @@ namespace Falsebound
                 _camera.position = new System.Numerics.Vector3(10, 4, -10);
                 _camera.target = new System.Numerics.Vector3(0, 1, 0);
             }
-
-            if((playerCharacter as Player).SelectedMarshal != null)
-            {
-                Marshal selectedMarshal = (playerCharacter as Player).SelectedMarshal;
-                Monster teamMember1 = selectedMarshal.Team[0];
-                Monster teamMember2 = selectedMarshal.Team[1];
-                Monster teamMember3 = selectedMarshal.Team[2];
-
-                (_scenes[0].UIElements[0] as UIText).Text = selectedMarshal.Name + "\n \n" 
-                    + teamMember1.Name + "\n" + teamMember1.Health + " / " + teamMember1.MaxHealth
-                    + "\n" + teamMember1.AttackPower + "\n" + teamMember1.Defense + "\n \n" + 
-                    teamMember2.Name + "\n" + teamMember2.Health + " / " + teamMember2.MaxHealth + "\n" 
-                    + teamMember2.AttackPower + "\n" + teamMember2.Defense + "\n \n" + teamMember3.Name 
-                    + "\n" +  teamMember3.Health + " / " + teamMember3.MaxHealth + "\n" + 
-                    teamMember3.AttackPower  + "\n" + teamMember3.Defense;
-            }
-
 
             _scenes[_currentSceneIndex].Update(deltaTime);
             _scenes[_currentSceneIndex].UpdateUI(deltaTime);
