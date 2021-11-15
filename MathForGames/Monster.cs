@@ -124,6 +124,7 @@ namespace Falsebound
             lhs._actions = rhs.Actions;
             lhs._speed = rhs.Speed;
             lhs.ShapeColor = rhs.ShapeColor;
+            lhs.Size = rhs.Size;
 
             return lhs;
         }

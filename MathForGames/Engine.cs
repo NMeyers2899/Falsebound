@@ -92,9 +92,11 @@ namespace Falsebound
 
             Monster skelly = new Monster(0, 0, 0, 15, 115, 37, 15, 4, "Skelly");
             skelly.SetColor(new Vector4(220, 120, 0, 255));
+            skelly.SetScale(0.5f, 1.5f, 0.5f);
 
             Monster thaeve = new Monster(0, 0, 0, 22, 74, 21, 16, 3, "Thaeve");
             thaeve.SetColor(new Vector4(120, 0, 54, 255));
+            thaeve.SetScale(0.6f, 0.5f, 1);
 
             Monster aLittleDude = new Monster(0, 0, 0, 16, 92, 23, 16, 4, "A Little Dude");
             aLittleDude.SetColor(new Vector4(150, 120, 0, 255));
@@ -106,6 +108,7 @@ namespace Falsebound
 
             Monster facelessHorror = new Monster(0, 0, 0, 10, 112, 29, 28, 4, "Faceless Horror");
             facelessHorror.SetColor(new Vector4(0, 120, 0, 255));
+            facelessHorror.SetScale(2, 3, 0.2f);
 
             Monster thwompus = new Monster(0, 0, 0, 8, 140, 20, 38, 2, "Thwompus");
             thwompus.SetColor(new Vector4(220, 0, 225, 255));
