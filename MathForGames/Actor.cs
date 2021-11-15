@@ -15,7 +15,7 @@ namespace Falsebound
     class Actor
     {
         private string _name;
-        private bool _started;
+        private bool _started = false;
         private Collider _collider;
         private Vector3 _forward = new Vector3(0, 0, 1);
         private Matrix4 _localTransform = Matrix4.Identity;
