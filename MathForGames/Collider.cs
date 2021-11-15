@@ -4,16 +4,9 @@ using System.Text;
 
 namespace Falsebound
 {
-    public enum ColliderType
-    {
-        SPHERE,
-        AABB
-    }
-
     abstract class Collider
     {
         private Actor _owner;
-        private ColliderType _colliderType;
 
         public Actor Owner
         {
@@ -21,30 +14,17 @@ namespace Falsebound
             set { _owner = value; }
         }
 
-        public ColliderType ColliderType
-        {
-            get { return _colliderType; }
-        }
-
-        public Collider(Actor owner, ColliderType colliderType)
+        public Collider(Actor owner)
         {
             _owner = owner;
-            _colliderType = colliderType;
         }
 
         public bool CheckForCollision(Actor other)
         {
-            if (other.Collider.ColliderType == ColliderType.SPHERE)
-                return CheckSphereCollision((SphereCollider)other.Collider);
-            else if (other.Collider.ColliderType == ColliderType.AABB)
-                return CheckCollisionAABB((AABBCollider)other.Collider);
-
-            return false;
+            return CheckSphereCollision((SphereCollider)other.Collider);
         }
 
         public virtual bool CheckSphereCollision(SphereCollider other) { return false; }
-
-        public virtual bool CheckCollisionAABB(AABBCollider other) { return false; }
 
         public virtual void Draw() { }
     }

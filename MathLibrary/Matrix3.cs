@@ -111,6 +111,12 @@ namespace MathLibrary
                                0, 0, 1);
         }
 
+        /// <summary>
+        /// Sets the translation of the matrix.
+        /// </summary>
+        /// <param name="x"> The position the matrix will be translated to on the x-axis. </param>
+        /// <param name="y"> The position the matrix will be translated to on the y-axis. </param>
+        /// <returns> The new translation. </returns>
         public static Matrix3 CreateTranslation(float x, float y)
         {
             return new Matrix3(1, 0, x,
@@ -118,6 +124,11 @@ namespace MathLibrary
                                0, 0, 1);
         }
 
+        /// <summary>
+        /// Sets the translation of the matrix.
+        /// </summary>
+        /// <param name="points"> The position the matrix will be translated to on all axies. </param>
+        /// <returns> The new translation. </returns>
         public static Matrix3 CreateTranslation(Vector2 points)
         {
             return new Matrix3(1, 0, points.X,
@@ -125,6 +136,12 @@ namespace MathLibrary
                                0, 0, 1);
         }
 
+        /// <summary>
+        /// Sets the scale of the matrix.
+        /// </summary>
+        /// <param name="x"> How much the matrix scales on the x-axis. </param>
+        /// <param name="y"> How much the matrix scales on the y-axis. </param>
+        /// <returns> The new scale. </returns>
         public static Matrix3 CreateScale(float x, float y)
         {
             return new Matrix3(x, 0, 0,

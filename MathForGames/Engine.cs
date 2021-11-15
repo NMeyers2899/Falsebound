@@ -153,20 +153,7 @@ namespace Falsebound
         /// </summary>
         private void Update(float deltaTime)
         {
-            Actor playerCharacter = _scenes[0].Actors[0];
-
-            if(!((_scenes[_currentSceneIndex]) is BattleScene))
-            {
-                _camera.position = new System.Numerics.Vector3(playerCharacter.WorldPosition.X,
-                            playerCharacter.WorldPosition.Y + 20, playerCharacter.WorldPosition.Z + 25);
-                _camera.target = new System.Numerics.Vector3(playerCharacter.WorldPosition.X,
-                    0, playerCharacter.WorldPosition.Z);
-            }
-            else
-            {
-                _camera.position = new System.Numerics.Vector3(10, 4, -10);
-                _camera.target = new System.Numerics.Vector3(0, 1, 0);
-            }
+            UpdateCamera();
 
             _scenes[_currentSceneIndex].Update(deltaTime);
             _scenes[_currentSceneIndex].UpdateUI(deltaTime);
@@ -174,6 +161,33 @@ namespace Falsebound
             // Keeps inputs from piling up, allowing one input per update.
             while (Console.KeyAvailable)
                 Console.ReadKey(true);
+        }
+
+        /// <summary>
+        /// Updates the position of the camera based on the scene and the actor in the first position.
+        /// </summary>
+        private void UpdateCamera()
+        {
+            // Sets the player character equal to the first actor in the first scene.
+            Actor playerCharacter = _scenes[0].Actors[0];
+
+            // If the current scene is not a battle scene...
+            if (!((_scenes[_currentSceneIndex]) is BattleScene))
+            {
+                // ...set the position of the camera above the player.
+                _camera.position = new System.Numerics.Vector3(playerCharacter.WorldPosition.X,
+                            playerCharacter.WorldPosition.Y + 20, playerCharacter.WorldPosition.Z + 25);
+                // And set the target to the player's current location.
+                _camera.target = new System.Numerics.Vector3(playerCharacter.WorldPosition.X,
+                    0, playerCharacter.WorldPosition.Z);
+            }
+            // If the current scene is a battle scene...
+            else
+            {
+                // Set the camera to a fixed position.
+                _camera.position = new System.Numerics.Vector3(10, 4, -10);
+                _camera.target = new System.Numerics.Vector3(0, 1, 0);
+            }
         }
 
         /// <summary>

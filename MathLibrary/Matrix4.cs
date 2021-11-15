@@ -159,6 +159,13 @@ namespace MathLibrary
                                0, 0, 0, 1);
         }
 
+        /// <summary>
+        /// Sets the translation of a matrix.
+        /// </summary>
+        /// <param name="x"> Where it moves on the x-axis. </param>
+        /// <param name="y"> Where it moves on the y-axis. </param>
+        /// <param name="z"> Where it moves on the z-axis. </param>
+        /// <returns> The new position. </returns>
         public static Matrix4 CreateTranslation(float x, float y, float z)
         {
             return new Matrix4(1, 0, 0, x,
@@ -167,6 +174,11 @@ namespace MathLibrary
                                0, 0, 0, 1);
         }
 
+        /// <summary>
+        /// Sets the translation of a matrix.
+        /// </summary>
+        /// <param name="translation"> The location the matrix will be translated to. </param>
+        /// <returns> The new position </returns>
         public static Matrix4 CreateTranslation(Vector3 translation)
         {
             return new Matrix4(1, 0, 0, translation.X,
@@ -175,6 +187,13 @@ namespace MathLibrary
                                0, 0, 0, 1);
         }
 
+        /// <summary>
+        /// Sets the scale of the matrix.
+        /// </summary>
+        /// <param name="x"> How much the matrix scales on the x-axis. </param>
+        /// <param name="y"> How much the matrix scales on the y-axis. </param>
+        /// <param name="z"> How much the matrix scales on the z-axis. </param>
+        /// <returns> The new scale. </returns>
         public static Matrix4 CreateScale(float x, float y, float z)
         {
             return new Matrix4(x, 0, 0, 0,
@@ -183,6 +202,11 @@ namespace MathLibrary
                                0, 0, 0, 1);
         }
 
+        /// <summary>
+        /// Sets the scale of the matrix.
+        /// </summary>
+        /// <param name="scale"> How much the matrix will scale on each axis. </param>
+        /// <returns> The new scale. </returns>
         public static Matrix4 CreateScale(Vector3 scale)
         {
             return new Matrix4(scale.X, 0, 0, 0,

@@ -16,7 +16,7 @@ namespace Falsebound
             set { _collisionRadius = value; }
         }
 
-        public SphereCollider(float collisionRadius, Actor owner) : base(owner, ColliderType.SPHERE)
+        public SphereCollider(float collisionRadius, Actor owner) : base(owner)
         {
             _collisionRadius = collisionRadius;
         }
@@ -43,31 +43,6 @@ namespace Falsebound
 
             // Return whether or not the distance is less than the combined radii.
             return distance <= combinedRadii;
-        }
-
-        public override bool CheckCollisionAABB(AABBCollider other)
-        {
-            // If the owners are the same...
-            if (other.Owner == Owner)
-                // ...return false.
-                return false;
-
-            // Get the direction from this collider to the AABB.
-            Vector3 direction = Owner.LocalPosition - other.Owner.LocalPosition;
-
-            // Clamp the direction vector to be within the bounds of the AABB.
-            direction.X = Math.Clamp(direction.X, -other.Width / 2, other.Width / 2);
-            direction.Y = Math.Clamp(direction.Y, -other.Height / 2, other.Height / 2);
-            direction.Z = Math.Clamp(direction.Z, -other.Height / 2, other.Height / 2);
-
-            // Add the direction vector to the AABB center to get the closest point to the circle.
-            Vector3 closestPoint = other.Owner.LocalPosition + direction;
-
-            // Find the distance from the circle's center to the closest point.
-            float distanceFromClosestPoint = Vector3.Distance(Owner.LocalPosition, closestPoint);
-
-            // Return whether or not the distance is less than the circle's radius.
-            return distanceFromClosestPoint <= CollisionRadius;
         }
     }
 }
