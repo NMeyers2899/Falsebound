@@ -134,7 +134,7 @@ namespace Falsebound
             marshal.Collider = marshalCollider;
             marshal.Team[0] = Monster.CopyMonster(marshal.Team[0], wompus);
             marshal.Team[1] = Monster.CopyMonster(marshal.Team[1], skelly);
-            marshal.Team[2] = Monster.CopyMonster(marshal.Team[2], thaeve);
+            marshal.Team[2] = Monster.CopyMonster(marshal.Team[2], aBigDude);
 
             // Initalizes the enemy marshal.
             Marshal enemyMarshal = new Marshal(-10, 1, 20, "Krazarackaradareda, the World Eater");
@@ -142,8 +142,8 @@ namespace Falsebound
             enemyMarshal.SetScale(2, 2, 2);
             SphereCollider enemyMarshalCollider = new SphereCollider(2, enemyMarshal);
             enemyMarshal.Collider = enemyMarshalCollider;
-            enemyMarshal.Team[0] = Monster.CopyMonster(enemyMarshal.Team[0], aLittleDude);
-            enemyMarshal.Team[1] = Monster.CopyMonster(enemyMarshal.Team[1], facelessHorror);
+            enemyMarshal.Team[0] = Monster.CopyMonster(enemyMarshal.Team[0], facelessHorror);
+            enemyMarshal.Team[1] = Monster.CopyMonster(enemyMarshal.Team[1], thaeve);
             enemyMarshal.Team[2] = Monster.CopyMonster(enemyMarshal.Team[2], thwompus);
 
             // Initalizes the second enemy marshal.
