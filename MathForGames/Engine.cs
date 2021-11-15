@@ -88,7 +88,7 @@ namespace Falsebound
             // Initalizes the monsters.
             Monster wompus = new Monster(0, 0, 0, 10, 120, 30, 25, 3, "Wompus");
             wompus.SetColor(new Vector4(220, 120, 54, 255));
-            wompus.SetScale(2, 2, 2);
+            wompus.SetScale(1.3f, 2, 2);
 
             Monster skelly = new Monster(0, 0, 0, 15, 115, 37, 15, 4, "Skelly");
             skelly.SetColor(new Vector4(220, 120, 0, 255));
@@ -107,11 +107,11 @@ namespace Falsebound
             aBigDude.SetScale(2, 1.5f, 2);
 
             Monster facelessHorror = new Monster(0, 0, 0, 10, 112, 29, 28, 4, "Faceless Horror");
-            facelessHorror.SetColor(new Vector4(0, 120, 0, 255));
+            facelessHorror.SetColor(new Vector4(200, 0, 200, 255));
             facelessHorror.SetScale(2, 3, 0.2f);
 
             Monster thwompus = new Monster(0, 0, 0, 8, 140, 20, 38, 2, "Thwompus");
-            thwompus.SetColor(new Vector4(220, 0, 225, 255));
+            thwompus.SetColor(new Vector4(220, 120, 80, 255));
             thwompus.SetScale(1.5f, 2, 1.5f);
 
             // Initalizes the player.
@@ -127,7 +127,7 @@ namespace Falsebound
             player.AddChild(hand);
 
             // Initalizes the allied marshal.
-            Marshal marshal = new Marshal(10, 1, 0, "Vizza");
+            Marshal marshal = new Marshal(10, 1, 0, "Uncle Phil");
             marshal.SetColor(new Vector4(0, 0, 255, 255));
             marshal.SetScale(2, 2, 2);
             SphereCollider marshalCollider = new SphereCollider(2, marshal);
@@ -137,7 +137,7 @@ namespace Falsebound
             marshal.Team[2] = Monster.CopyMonster(marshal.Team[2], thaeve);
 
             // Initalizes the enemy marshal.
-            Marshal enemyMarshal = new Marshal(-10, 1, 20, "Haladar");
+            Marshal enemyMarshal = new Marshal(-10, 1, 20, "Krazarackaradareda, the World Eater");
             enemyMarshal.SetColor(new Vector4(255, 0, 0, 255));
             enemyMarshal.SetScale(2, 2, 2);
             SphereCollider enemyMarshalCollider = new SphereCollider(2, enemyMarshal);
