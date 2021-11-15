@@ -19,6 +19,9 @@ namespace MathLibrary
             M30 = m30; M31 = m31; M32 = m32; M33 = m33;
         }
 
+        /// <summary>
+        /// Gets a basic matrix4.
+        /// </summary>
         public static Matrix4 Identity
         {
             get
@@ -30,6 +33,12 @@ namespace MathLibrary
             }
         }
 
+        /// <summary>
+        /// Adds two matrix4's together.
+        /// </summary>
+        /// <param name="lhs"> The left hand matrix4. </param>
+        /// <param name="rhs"> The right hand matrix4 </param>
+        /// <returns> The sum of both matricies. </returns>
         public static Matrix4 operator +(Matrix4 lhs, Matrix4 rhs)
         {
             return new Matrix4(lhs.M00 + rhs.M00, lhs.M01 + rhs.M01, lhs.M02 + rhs.M02, lhs.M03 + rhs.M03,
@@ -38,6 +47,12 @@ namespace MathLibrary
                                lhs.M30 + rhs.M30, lhs.M31 + rhs.M31, lhs.M32 + rhs.M32, lhs.M33 + rhs.M33);
         }
 
+        /// <summary>
+        /// Subtracts two matrix4's by each other.
+        /// </summary>
+        /// <param name="lhs"> The left hand matrix4. </param>
+        /// <param name="rhs"> The right hand matrix4 </param>
+        /// <returns> The difference between two matricies. </returns>
         public static Matrix4 operator -(Matrix4 lhs, Matrix4 rhs)
         {
             return new Matrix4(lhs.M00 - rhs.M00, lhs.M01 - rhs.M01, lhs.M02 - rhs.M02, lhs.M03 - rhs.M03,
@@ -46,6 +61,12 @@ namespace MathLibrary
                                lhs.M30 - rhs.M30, lhs.M31 - rhs.M31, lhs.M32 - rhs.M32, lhs.M33 - rhs.M33);
         }
 
+        /// <summary>
+        ///  Multiplies two matrix4's together.
+        /// </summary>
+        /// <param name="lhs"> The left hand matrix4. </param>
+        /// <param name="rhs"> The right hand matrix4. </param>
+        /// <returns> The product of the two matricies. </returns>
         public static Matrix4 operator *(Matrix4 lhs, Matrix4 rhs)
         {
             // Row 1, Column 1.
@@ -85,6 +106,12 @@ namespace MathLibrary
                                ((lhs.M30 * rhs.M03) + (lhs.M31 * rhs.M13) + (lhs.M32 * rhs.M23) + (lhs.M33 * rhs.M33)));
         }
 
+        /// <summary>
+        /// Multiplies a matrix3 by a vector4.
+        /// </summary>
+        /// <param name="lhs"> The left hand matrix4. </param>
+        /// <param name="rhs"> The right hand vector4. </param>
+        /// <returns> The product of a matrix3 and vector4. </returns>
         public static Vector4 operator *(Matrix4 lhs, Vector4 rhs)
         {
             return new Vector4((lhs.M00 * rhs.X) + (lhs.M01 * rhs.Y) + (lhs.M02 * rhs.Z) + (lhs.M03 * rhs.W),
@@ -93,6 +120,11 @@ namespace MathLibrary
                                (lhs.M30 * rhs.X) + (lhs.M31 * rhs.Y) + (lhs.M32 * rhs.Z) + (lhs.M33 * rhs.W));
         }
 
+        /// <summary>
+        /// Rotates a matrix on the x-axis.
+        /// </summary>
+        /// <param name="radians"> The amount the matrix will be rotated by. </param>
+        /// <returns> The rotated matrix. </returns>
         public static Matrix4 CreateRotationX(float radians)
         {
             return new Matrix4(1, 0, 0, 0,
@@ -100,6 +132,12 @@ namespace MathLibrary
                                0, (float)Math.Sin(radians), (float)Math.Cos(radians), 0,
                                0, 0, 0, 1);
         }
+
+        /// <summary>
+        /// Rotates a matrix on the y-axis.
+        /// </summary>
+        /// <param name="radians"> The amount the matrix will be rotated by. </param>
+        /// <returns> The rotated matrix. </returns>
         public static Matrix4 CreateRotationY(float radians)
         {
             return new Matrix4((float)Math.Cos(radians), 0, (float)Math.Sin(radians), 0,
@@ -107,6 +145,12 @@ namespace MathLibrary
                                -(float)Math.Sin(radians), 0, (float)Math.Cos(radians), 0,
                                0, 0, 0, 1);
         }
+
+        /// <summary>
+        /// Rotates a matrix on the z-axis.
+        /// </summary>
+        /// <param name="radians"> The amount the matrix will be rotated by. </param>
+        /// <returns> The rotated matrix. </returns>
         public static Matrix4 CreateRotationZ(float radians)
         {
             return new Matrix4((float)Math.Cos(radians), -(float)Math.Sin(radians), 0, 0,

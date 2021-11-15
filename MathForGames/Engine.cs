@@ -12,7 +12,7 @@ namespace Falsebound
     {
         private static bool _applicationShouldClose = false;
         private static int _currentSceneIndex;
-        private Scene[] _scenes = new Scene[0];
+        private static Scene[] _scenes = new Scene[0];
         private Stopwatch _stopWatch = new Stopwatch();
         private Camera3D _camera = new Camera3D();
 
@@ -79,10 +79,29 @@ namespace Falsebound
             Scene overworld = new Scene();
 
             // Initalizes the battle scene.
-            Scene battle = new Scene();
+            BattleScene battle = new BattleScene();
+
+            // Initalizes the monsters.
+            Monster wompus = new Monster(0, 0, 0, 10, 120, 30, 25, 3, "Wompus");
+            wompus.SetColor(new Vector4(220, 120, 54, 255));
+
+            Monster skelly = new Monster(0, 0, 0, 15, 115, 37, 15, 4, "Skelly");
+            skelly.SetColor(new Vector4(220, 120, 0, 255));
+
+            Monster thaeve = new Monster(0, 0, 0, 22, 74, 21, 16, 3, "Thaeve");
+            thaeve.SetColor(new Vector4(120, 0, 54, 255));
+
+            Monster aLittleDude = new Monster(0, 0, 0, 16, 92, 23, 16, 4, "A Little Dude");
+            aLittleDude.SetColor(new Vector4(150, 120, 0, 255));
+
+            Monster facelessHorror = new Monster(0, 0, 0, 10, 112, 29, 28, 4, "Faceless Horror");
+            facelessHorror.SetColor(new Vector4(0, 120, 0, 255));
+
+            Monster thwompus = new Monster(0, 0, 0, 8, 140, 20, 38, 2, "Thwompus");
+            thwompus.SetColor(new Vector4(220, 0, 225, 255));
 
             // Initalizes the player.
-            Player player = new Player(0, 0, 0, 15);
+            Player player = new Player(0, 1, 0, 25);
             player.SetColor(new Vector4(0, 200, 0, 150));
             player.SetScale(1, 0.5f, 1);
             SphereCollider playerCollider = new SphereCollider(1, player);
@@ -94,26 +113,33 @@ namespace Falsebound
             player.AddChild(hand);
 
             // Initalizes the allied marshal.
-            Marshal marshal = new Marshal(10, 0, 0, 15, "Vizza");
+            Marshal marshal = new Marshal(10, 1, 0, "Vizza");
             marshal.SetColor(new Vector4(0, 0, 255, 255));
             marshal.SetScale(2, 2, 2);
             SphereCollider marshalCollider = new SphereCollider(2, marshal);
             marshal.Collider = marshalCollider;
+            marshal.AddTeamMemeber(wompus, 0);
+            marshal.AddTeamMemeber(skelly, 1);
+            marshal.AddTeamMemeber(thaeve, 2);
 
             // Initalizes the enemy marshal.
-            Marshal enemyMarshal = new Marshal(-10, 0, 20, 15, "Haladar");
+            Marshal enemyMarshal = new Marshal(-10, 1, 20, "Haladar");
             enemyMarshal.SetColor(new Vector4(255, 0, 0, 255));
             enemyMarshal.SetScale(2, 2, 2);
             SphereCollider enemyMarshalCollider = new SphereCollider(2, enemyMarshal);
             enemyMarshal.Collider = enemyMarshalCollider;
+            enemyMarshal.AddTeamMemeber(aLittleDude, 0);
+            enemyMarshal.AddTeamMemeber(facelessHorror, 1);
+            enemyMarshal.AddTeamMemeber(thwompus, 2);
+
+            //Initializes the text box.
+            UIText marshalStats = new UIText(10, 5, 0, "Stat Box", 100, 300, 12, "");
 
             // Adds the required actors to the overworld scene.
             overworld.AddActor(player);
             overworld.AddActor(marshal);
             overworld.AddActor(enemyMarshal);
-
-            // Adds the required actors to the battle scene.
-            battle.AddActor(player);
+            overworld.AddUIElement(marshalStats);
 
             // Adds the scenes to the engine.
             AddScene(overworld);
@@ -129,19 +155,38 @@ namespace Falsebound
         {
             Actor playerCharacter = _scenes[0].Actors[0];
 
-            if (playerCharacter is Player)
+            if(!((_scenes[_currentSceneIndex]) is BattleScene))
             {
                 _camera.position = new System.Numerics.Vector3(playerCharacter.WorldPosition.X,
-                playerCharacter.WorldPosition.Y + 20, playerCharacter.WorldPosition.Z + 25);
+                            playerCharacter.WorldPosition.Y + 20, playerCharacter.WorldPosition.Z + 25);
                 _camera.target = new System.Numerics.Vector3(playerCharacter.WorldPosition.X,
                     0, playerCharacter.WorldPosition.Z);
             }
+            else
+            {
+                _camera.position = new System.Numerics.Vector3(10, 4, -10);
+                _camera.target = new System.Numerics.Vector3(0, 1, 0);
+            }
+
+            if((playerCharacter as Player).SelectedMarshal != null)
+            {
+                Marshal selectedMarshal = (playerCharacter as Player).SelectedMarshal;
+                Monster teamMember1 = selectedMarshal.Team[0];
+                Monster teamMember2 = selectedMarshal.Team[1];
+                Monster teamMember3 = selectedMarshal.Team[2];
+
+                (_scenes[0].UIElements[0] as UIText).Text = selectedMarshal.Name + "\n \n" 
+                    + teamMember1.Name + "\n" + teamMember1.Health + " / " + teamMember1.MaxHealth
+                    + "\n" + teamMember1.AttackPower + "\n" + teamMember1.Defense + "\n \n" + 
+                    teamMember2.Name + "\n" + teamMember2.Health + " / " + teamMember2.MaxHealth + "\n" 
+                    + teamMember2.AttackPower + "\n" + teamMember2.Defense + "\n \n" + teamMember3.Name 
+                    + "\n" +  teamMember3.Health + " / " + teamMember3.MaxHealth + "\n" + 
+                    teamMember3.AttackPower  + "\n" + teamMember3.Defense;
+            }
 
 
-            _scenes[_currentSceneIndex].Update(deltaTime, _scenes[_currentSceneIndex]);
-
-            if (_scenes[_currentSceneIndex].UIElements != null)
-                 _scenes[_currentSceneIndex].UpdateUI(deltaTime, _scenes[_currentSceneIndex]);
+            _scenes[_currentSceneIndex].Update(deltaTime);
+            _scenes[_currentSceneIndex].UpdateUI(deltaTime);
 
             // Keeps inputs from piling up, allowing one input per update.
             while (Console.KeyAvailable)
@@ -158,11 +203,13 @@ namespace Falsebound
 
             Raylib.ClearBackground(Color.WHITE);
             Raylib.DrawGrid(50, 1);
-
+            // Draws all of the non-UI actors in the scene.
             _scenes[_currentSceneIndex].Draw();
-            _scenes[_currentSceneIndex].DrawUI();
 
             Raylib.EndMode3D();
+            // Draws all of the UI elements in the scene.
+            _scenes[_currentSceneIndex].DrawUI();
+
             Raylib.EndDrawing();
         }
 
@@ -222,9 +269,24 @@ namespace Falsebound
             _applicationShouldClose = true;
         }
 
-        public static void MoveToBattleScene()
+        /// <summary>
+        /// Takes in two arrays associated with the teams of two marshals and sets the scene to battle.
+        /// </summary>
+        /// <param name="teamOne"> The first marshal's team. </param>
+        /// <param name="teamTwo"> The second marshal's team. </param>
+        public static void MoveToBattleScene(Monster[] teamOne, Monster[] teamTwo)
         {
             _currentSceneIndex = 1;
+            (_scenes[_currentSceneIndex] as BattleScene).StartBattle(teamOne, teamTwo);
+        }
+
+        /// <summary>
+        /// Finds the current scene.
+        /// </summary>
+        /// <returns> The current scene. </returns>
+        public static Scene GetCurrentScene()
+        {
+            return _scenes[_currentSceneIndex];
         }
     }
 }

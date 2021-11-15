@@ -143,7 +143,7 @@ namespace Falsebound
             _started = true;
         }
 
-        public virtual void Update(float deltaTime, Scene currentScene)
+        public virtual void Update(float deltaTime)
         {
             Console.WriteLine(Name + LocalPosition.X + " , " + LocalPosition.Y + ", " + LocalPosition.Z);
 
@@ -181,7 +181,7 @@ namespace Falsebound
 
         }
 
-        public virtual void OnCollision(Actor actor, Scene currentScene)
+        public virtual void OnCollision(Actor actor)
         {
            
         }
@@ -216,17 +216,26 @@ namespace Falsebound
                 GlobalTransform = LocalTransform;
         }
 
+        /// <summary>
+        /// Adds a child to the actor.
+        /// </summary>
+        /// <param name="child"> The actor being childed. </param>
         public void AddChild(Actor child)
         {
+            // Creates a new array that is one size larger than the children array.
             Actor[] tempArray = new Actor[_children.Length + 1];
 
+            // Sets all of the elements in the temp array equal to the elements in the children array.
             for (int i = 0; i < _children.Length; i++)
                 tempArray[i] = _children[i];
 
+            // Sets the child equal to the last index of the array.
             tempArray[_children.Length] = child;
 
+            // Sets the old array equal to the new array.
             _children = tempArray;
 
+            // Sets the child's parent equal to this actor.
             child.Parent = this;
         }
 
