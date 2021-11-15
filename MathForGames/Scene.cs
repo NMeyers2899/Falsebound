@@ -40,7 +40,7 @@ namespace Falsebound
         /// <summary>
         /// Calls the update for every actor within the scene.
         /// </summary>
-        public virtual void Update(float deltaTime, Scene currentScene)
+        public virtual void Update(float deltaTime)
         {
             // Loops through the array to get each character to Update.
             for (int i = 0; i < _actors.Length; i++)
@@ -50,7 +50,7 @@ namespace Falsebound
                     // ...the current actor calls its Start function.
                     _actors[i].Start();
 
-                _actors[i].Update(deltaTime, currentScene);
+                _actors[i].Update(deltaTime);
 
                 // Goes through the actors list to see if any actor has collided.
                 for (int j = 0; j < _actors.Length; j++)
@@ -60,13 +60,13 @@ namespace Falsebound
                         // If they have collided...
                         if (_actors[i].CheckForCollision(_actors[j]) && j != i)
                             // ...calls the OnCollision function for the actor.
-                            _actors[i].OnCollision(_actors[j], this);
+                            _actors[i].OnCollision(_actors[j]);
                     }
                 }
             }
         }
 
-        public virtual void UpdateUI(float deltaTime, Scene currentScene)
+        public virtual void UpdateUI(float deltaTime)
         {
             for (int i = 0; i < _UIElements.Length; i++)
             {
@@ -75,7 +75,7 @@ namespace Falsebound
                     _UIElements[i].Start();
                 }
 
-                _UIElements[i].Update(deltaTime, currentScene);
+                _UIElements[i].Update(deltaTime);
             }
         }
 

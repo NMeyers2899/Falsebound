@@ -12,6 +12,9 @@ namespace Falsebound
         private int _maxHealth;
         private int _attackPower;
         private int _defense;
+        /// <summary>
+        /// The amount of times during a battle a monster can act.
+        /// </summary>
         private int _actions;
         private float _speed;
 
@@ -81,6 +84,7 @@ namespace Falsebound
         public void Attack(Monster target)
         {
             target.TakeDamage(_attackPower);
+            _actions--;
         }
 
         /// <summary>

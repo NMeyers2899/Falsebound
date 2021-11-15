@@ -6,12 +6,8 @@ namespace Falsebound
 {
     class BattleScene : Scene
     {
-        private Marshal _marshalOne;
         private Monster[] _teamOne = new Monster[3];
-        private Marshal _marshalTwo;
         private Monster[] _teamTwo = new Monster[3];
-        private Monster[] _turnOrder = new Monster[6];
-        private Monster _currentMonster;
 
         public BattleScene() : base() { }
 
@@ -19,7 +15,7 @@ namespace Falsebound
         /// Begins the battle by setting the positions of the monsters.
         /// </summary>
         /// <param name="teamOne"> The first team of monsters. </param>
-        /// <param name="teamTwo"> The second team of monsters. </param>
+        /// <param name="teamTwo"> The second team of monsters. </param>d
         public void StartBattle(Monster[] teamOne, Monster[] teamTwo)
         {
             // Adds the monsters in team one to the scene.

@@ -17,6 +17,9 @@ namespace MathLibrary
             M20 = m20; M21 = m21; M22 = m22;
         }
 
+        /// <summary>
+        /// Gets a basic matrix3.
+        /// </summary>
         public static Matrix3 Identity
         {
             get
@@ -27,6 +30,12 @@ namespace MathLibrary
             }
         }
 
+        /// <summary>
+        /// Adds two matrix3's together.
+        /// </summary>
+        /// <param name="lhs"> The left hand matrix3. </param>
+        /// <param name="rhs"> The right hand matrix3 </param>
+        /// <returns> The sum of both matricies. </returns>
         public static Matrix3 operator +(Matrix3 lhs, Matrix3 rhs)
         {
             return new Matrix3(lhs.M00 + rhs.M00, lhs.M01 + rhs.M01, lhs.M02 + rhs.M02,
@@ -34,6 +43,12 @@ namespace MathLibrary
                                lhs.M20 + rhs.M20, lhs.M21 + rhs.M21, lhs.M22 + rhs.M22);
         }
 
+        /// <summary>
+        /// Subtracts two matrix3's by each other.
+        /// </summary>
+        /// <param name="lhs"> The left hand matrix3. </param>
+        /// <param name="rhs"> The right hand matrix3 </param>
+        /// <returns> The difference between two matricies. </returns>
         public static Matrix3 operator -(Matrix3 lhs, Matrix3 rhs)
         {
             return new Matrix3(lhs.M00 - rhs.M00, lhs.M01 - rhs.M01, lhs.M02 - rhs.M02,
@@ -41,6 +56,12 @@ namespace MathLibrary
                                lhs.M20 - rhs.M20, lhs.M21 - rhs.M21, lhs.M22 - rhs.M22);
         }
 
+        /// <summary>
+        ///  Multiplies two matrix3's together.
+        /// </summary>
+        /// <param name="lhs"> The left hand matrix3. </param>
+        /// <param name="rhs"> The right hand matrix3. </param>
+        /// <returns> The product of the two matricies. </returns>
         public static Matrix3 operator *(Matrix3 lhs, Matrix3 rhs)
         {
             // Row 1, Column 1.
@@ -65,6 +86,12 @@ namespace MathLibrary
                                ((lhs.M20 * rhs.M02) + (lhs.M21 * rhs.M12) + (lhs.M22 * rhs.M22)));
         }
 
+        /// <summary>
+        /// Multiplies a matrix3 by a vector3.
+        /// </summary>
+        /// <param name="lhs"> The left hand matrix3. </param>
+        /// <param name="rhs"> The right hand vector3. </param>
+        /// <returns> The product of a matrix3 and vector3. </returns>
         public static Vector3 operator *(Matrix3 lhs, Vector3 rhs)
         {
             return new Vector3((lhs.M00 * rhs.X) + (lhs.M01 * rhs.Y) + (lhs.M02 * rhs.Z),
@@ -72,6 +99,11 @@ namespace MathLibrary
                                (lhs.M20 * rhs.X) + (lhs.M21 * rhs.Y) + (lhs.M22 * rhs.Z));
         }
 
+        /// <summary>
+        /// Rotates a matrix.
+        /// </summary>
+        /// <param name="radians"> The amount the matrix will be rotated by. </param>
+        /// <returns> The rotated matrix. </returns>
         public static Matrix3 CreateRotation(float radians)
         {
             return new Matrix3((float)Math.Cos(radians), (float)Math.Sin(radians), 0,

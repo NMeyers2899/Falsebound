@@ -144,7 +144,6 @@ namespace Falsebound
             // Adds the scenes to the engine.
             AddScene(overworld);
             AddScene(battle);
-            //MoveToBattleScene(marshal.Team, enemyMarshal.Team);
 
             _scenes[_currentSceneIndex].Start();
         }
@@ -174,11 +173,7 @@ namespace Falsebound
                 Marshal selectedMarshal = (playerCharacter as Player).SelectedMarshal;
                 Monster teamMember1 = selectedMarshal.Team[0];
                 Monster teamMember2 = selectedMarshal.Team[1];
-                if (teamMember2 == null)
-                    teamMember2 = new Monster();
                 Monster teamMember3 = selectedMarshal.Team[2];
-                if (teamMember3 == null)
-                    teamMember3 = new Monster();
 
                 (_scenes[0].UIElements[0] as UIText).Text = selectedMarshal.Name + "\n \n" 
                     + teamMember1.Name + "\n" + teamMember1.Health + " / " + teamMember1.MaxHealth
@@ -190,8 +185,8 @@ namespace Falsebound
             }
 
 
-            _scenes[_currentSceneIndex].Update(deltaTime, _scenes[_currentSceneIndex]);
-            _scenes[_currentSceneIndex].UpdateUI(deltaTime, _scenes[_currentSceneIndex]);
+            _scenes[_currentSceneIndex].Update(deltaTime);
+            _scenes[_currentSceneIndex].UpdateUI(deltaTime);
 
             // Keeps inputs from piling up, allowing one input per update.
             while (Console.KeyAvailable)
@@ -208,11 +203,11 @@ namespace Falsebound
 
             Raylib.ClearBackground(Color.WHITE);
             Raylib.DrawGrid(50, 1);
-
+            // Draws all of the non-UI actors in the scene.
             _scenes[_currentSceneIndex].Draw();
 
             Raylib.EndMode3D();
-
+            // Draws all of the UI elements in the scene.
             _scenes[_currentSceneIndex].DrawUI();
 
             Raylib.EndDrawing();
@@ -274,10 +269,24 @@ namespace Falsebound
             _applicationShouldClose = true;
         }
 
+        /// <summary>
+        /// Takes in two arrays associated with the teams of two marshals and sets the scene to battle.
+        /// </summary>
+        /// <param name="teamOne"> The first marshal's team. </param>
+        /// <param name="teamTwo"> The second marshal's team. </param>
         public static void MoveToBattleScene(Monster[] teamOne, Monster[] teamTwo)
         {
             _currentSceneIndex = 1;
             (_scenes[_currentSceneIndex] as BattleScene).StartBattle(teamOne, teamTwo);
+        }
+
+        /// <summary>
+        /// Finds the current scene.
+        /// </summary>
+        /// <returns> The current scene. </returns>
+        public static Scene GetCurrentScene()
+        {
+            return _scenes[_currentSceneIndex];
         }
     }
 }
