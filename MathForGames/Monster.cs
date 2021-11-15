@@ -98,5 +98,34 @@ namespace Falsebound
             else
                 _health -= damage - _defense;
         }
+
+        /// <summary>
+        /// Changes a monster's opacity to 0 making it invisible.
+        /// </summary>
+        public void Die()
+        {
+            SetColor(new Vector4(0, 0, 0, 0));
+        }
+
+        /// <summary>
+        /// Takes in two monsters and sets the lhs equal to the rhs.
+        /// </summary>
+        /// <param name="lhs"> The left hand monster. </param>
+        /// <param name="rhs"> The right hand monster. </param>
+        /// <returns> The copied monster. </returns>
+        public static Monster CopyMonster(Monster lhs, Monster rhs)
+        {
+            lhs = new Monster();
+            lhs.Name = rhs.Name;
+            lhs._maxHealth = rhs.MaxHealth;
+            lhs.Health = lhs.MaxHealth;
+            lhs._attackPower = rhs.AttackPower;
+            lhs._defense = rhs.Defense;
+            lhs._actions = rhs.Actions;
+            lhs._speed = rhs.Speed;
+            lhs.ShapeColor = rhs.ShapeColor;
+
+            return lhs;
+        }
     }
 }

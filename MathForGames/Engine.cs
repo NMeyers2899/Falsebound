@@ -122,9 +122,9 @@ namespace Falsebound
             marshal.SetScale(2, 2, 2);
             SphereCollider marshalCollider = new SphereCollider(2, marshal);
             marshal.Collider = marshalCollider;
-            marshal.AddTeamMemeber(wompus, 0);
-            marshal.AddTeamMemeber(skelly, 1);
-            marshal.AddTeamMemeber(thaeve, 2);
+            marshal.Team[0] = Monster.CopyMonster(marshal.Team[0], wompus);
+            marshal.Team[1] = Monster.CopyMonster(marshal.Team[1], wompus);
+            marshal.Team[2] = Monster.CopyMonster(marshal.Team[2], wompus);
 
             // Initalizes the enemy marshal.
             Marshal enemyMarshal = new Marshal(-10, 1, 20, "Haladar");

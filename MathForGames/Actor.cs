@@ -105,6 +105,7 @@ namespace Falsebound
         public string Name
         {
             get { return _name; }
+            set { _name = value; }
         }
 
         public Vector3 Forward
@@ -121,6 +122,7 @@ namespace Falsebound
         public Color ShapeColor
         {
             get { return _color; }
+            set { _color = value; }
         }
 
         public Actor(Vector3 position, string name = "Actor", Shape shape = Shape.CUBE, Actor parent = null)
