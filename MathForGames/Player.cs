@@ -12,23 +12,41 @@ namespace Falsebound
         private Vector3 _velocity;
         private Marshal _selectedMarshal = null;
 
+        /// <summary>
+        /// How fast the player moves.
+        /// </summary>
         public float Speed
         {
             get { return _speed; }
             set { _speed = value; }
         }
 
+        /// <summary>
+        /// The direction the player is moving in, and how fast they are moving in that direction.
+        /// </summary>
         public Vector3 Velocity
         {
             get { return _velocity; }
             set { _velocity = value; }
         }
 
+        /// <summary>
+        /// The marshal the player currently has selected.
+        /// </summary>
         public Marshal SelectedMarshal
         {
             get { return _selectedMarshal; }
         }
 
+        /// <summary>
+        /// The basic constructor for a player.
+        /// </summary>
+        /// <param name="x"> Their starting position on the x-axis. </param>
+        /// <param name="y"> Their starting position on the y-axis. </param>
+        /// <param name="z"> Their starting position on the z-axis. </param>
+        /// <param name="speed"> The speed at which the player moves. </param>
+        /// <param name="name"> The player's name. </param>
+        /// <param name="shape"> The shape which will be drawn. </param>
         public Player(float x, float y, float z, float speed, string name = "Player",
             Shape shape = Shape.SPHERE) : base(x, y, z, name, shape)
         {

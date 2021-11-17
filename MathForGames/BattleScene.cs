@@ -8,9 +8,10 @@ namespace Falsebound
     {
         private Monster[] _teamOne = new Monster[3];
         private Monster[] _teamTwo = new Monster[3];
-        private Monster[] _allMonsters = new Monster[6];
-        private Monster _currentMonster;
 
+        /// <summary>
+        /// Creates an empty battle scene.
+        /// </summary>
         public BattleScene() : base() { }
 
         /// <summary>
@@ -30,8 +31,6 @@ namespace Falsebound
             for (int i = 0; i < teamTwo.Length; i++)
                 AddActor(teamTwo[i]);
 
-            GetAllMonsters();
-
             // Sets the positions for the monster's in team one.
             teamOne[0].SetTranslation(0, 1, 5);
             teamOne[1].SetTranslation(5, 1, 5);
@@ -41,18 +40,6 @@ namespace Falsebound
             teamTwo[0].SetTranslation(0, 1, -5);
             teamTwo[1].SetTranslation(5, 1, -5);
             teamTwo[2].SetTranslation(-5, 1, -5);
-        }
-
-        /// <summary>
-        /// Gathers all monsters from both teams and adds them into the same array.
-        /// </summary>
-        public void GetAllMonsters()
-        {
-            for (int i = 0; i < _teamOne.Length; i++)
-                _allMonsters[i] = _teamOne[i];
-
-            for (int i = 0; i < _teamTwo.Length; i++)
-                _allMonsters[i + 3] = _teamTwo[i];
         }
     }
 }

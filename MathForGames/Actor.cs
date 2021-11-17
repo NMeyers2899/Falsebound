@@ -6,6 +6,9 @@ using Raylib_cs;
 
 namespace Falsebound
 {
+    /// <summary>
+    /// Determines which shape the program will draw for a given actor.
+    /// </summary>
     public enum Shape
     {
         CUBE,
@@ -36,6 +39,9 @@ namespace Falsebound
             get { return _started; }
         }
 
+        /// <summary>
+        /// The position of the actor in relation to a possible parent.
+        /// </summary>
         public Vector3 LocalPosition
         {
             get { return new Vector3(_translation.M03, _translation.M13, _translation.M23); }
@@ -67,29 +73,44 @@ namespace Falsebound
             }
         }
 
+        /// <summary>
+        /// The transform that represents the actor in the world.
+        /// </summary>
         public Matrix4 GlobalTransform
         {
             get { return _globalTransform; }
             private set { _globalTransform = value; }
         }
 
+        /// <summary>
+        /// The transform that represents the actor's world.
+        /// </summary>
         public Matrix4 LocalTransform
         {
             get { return _localTransform; }
             private set { _localTransform = value; }
         }
 
+        /// <summary>
+        /// The parent this actor is childed to.
+        /// </summary>
         public Actor Parent
         {
             get { return _parent; }
             set { _parent = value; }
         }
 
+        /// <summary>
+        /// The array of actors that are childed to this actor.
+        /// </summary>
         public Actor[] Children
         {
             get { return _children; }
         }
 
+        /// <summary>
+        /// The scale of the actor.
+        /// </summary>
         public Vector3 Size
         {
             get
@@ -102,29 +123,48 @@ namespace Falsebound
             set { SetScale(value.X, value.Y, value.Z); }
         }
 
+        /// <summary>
+        /// What this actor is called.
+        /// </summary>
         public string Name
         {
             get { return _name; }
             set { _name = value; }
         }
 
+        /// <summary>
+        /// The direction this actor is facing.
+        /// </summary>
         public Vector3 Forward
         {
             get { return new Vector3(_rotation.M02, _rotation.M12, _rotation.M22).Normalized; }
         }
 
+        /// <summary>
+        ///  The collider that is attached to the actor.
+        /// </summary>
         public Collider Collider
         {
             get { return _collider; }
             set { _collider = value; }
         }
 
+        /// <summary>
+        /// The color of the actor.
+        /// </summary>
         public Color ShapeColor
         {
             get { return _color; }
             set { _color = value; }
         }
 
+        /// <summary>
+        /// The basic constructor for the actor.
+        /// </summary>
+        /// <param name="position"> The position which this actor starts at. </param>
+        /// <param name="name"> The name of the actor. </param>
+        /// <param name="shape"> What shape this actor will be drawn as. </param>
+        /// <param name="parent"> The possible parent of this actor. </param>
         public Actor(Vector3 position, string name = "Actor", Shape shape = Shape.CUBE, Actor parent = null)
         {
             SetTranslation(position.X, position.Y, position.Z);
@@ -135,9 +175,21 @@ namespace Falsebound
                 _parent = parent;
         }
 
+        /// <summary>
+        /// A basic constructor for the actor that doesn't require a Vector3.
+        /// </summary>
+        /// <param name="x"> The starting position of this actor on the x-axis. </param>
+        /// <param name="y"> The starting position of this actor on the y-axis. </param>
+        /// <param name="z"> The starting position of this actor on the z-axis. </param>
+        /// <param name="name"> The name of the actor. </param>
+        /// <param name="shape"> What shape this actor will be drawn as. </param>
+        /// <param name="parent"> The possible parent of this actor. </param>
         public Actor(float x, float y, float z, string name = "Actor", Shape shape = Shape.CUBE,
             Actor parent = null) : this(new Vector3 { X = x, Y = y, Z = z }, name, shape, parent) { }
 
+        /// <summary>
+        /// Creates an basic actor, with no position, name, or shape.
+        /// </summary>
         public Actor() { }
 
         public virtual void Start()
@@ -208,6 +260,9 @@ namespace Falsebound
                 (int)colorValue.W);
         }
 
+        /// <summary>
+        /// Updates the transforms of the actor to update its current position.
+        /// </summary>
         public void UpdateTransforms()
         {
             _localTransform = _translation * _rotation * _scale;
@@ -241,6 +296,11 @@ namespace Falsebound
             child.Parent = this;
         }
 
+        /// <summary>
+        /// Removes a child from the _children array.
+        /// </summary>
+        /// <param name="child"> The actor being removed from the array. </param>
+        /// <returns></returns>
         public bool RemoveChild(Actor child)
         {
             Actor[] tempArray = new Actor[_children.Length - 1];
@@ -332,6 +392,12 @@ namespace Falsebound
             _rotation *= rotationX * rotationY * rotationZ;
         }
 
+        /// <summary>
+        /// Sets the scale of the actor.
+        /// </summary>
+        /// <param name="x"> The value to scale on the x-axis. </param>
+        /// <param name="y"> The value to scale on the y-axis. </param>
+        /// <param name="z"> The value to scale on the z-axis. </param>
         public void SetScale(float x, float y, float z)
         {
             _scale = Matrix4.CreateScale(x, y, z);

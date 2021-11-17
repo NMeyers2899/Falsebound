@@ -86,31 +86,31 @@ namespace Falsebound
             AddScene(battle);
 
             // Initalizes the monsters.
-            Monster wompus = new Monster(0, 0, 0, 10, 120, 30, 25, 3, "Wompus");
+            Monster wompus = new Monster(10, 120, 30, 25, "Wompus");
             wompus.SetColor(new Vector4(220, 120, 54, 255));
             wompus.SetScale(1.3f, 2, 2);
 
-            Monster skelly = new Monster(0, 0, 0, 15, 115, 37, 15, 4, "Skelly");
+            Monster skelly = new Monster(15, 115, 37, 15, "Skelly");
             skelly.SetColor(new Vector4(220, 120, 0, 255));
             skelly.SetScale(0.5f, 1.5f, 0.5f);
 
-            Monster thaeve = new Monster(0, 0, 0, 22, 74, 21, 16, 3, "Thaeve");
+            Monster thaeve = new Monster(22, 74, 21, 16, "Thaeve");
             thaeve.SetColor(new Vector4(120, 0, 54, 255));
             thaeve.SetScale(0.6f, 0.5f, 1);
 
-            Monster aLittleDude = new Monster(0, 0, 0, 16, 92, 23, 16, 4, "A Little Dude");
+            Monster aLittleDude = new Monster(16, 92, 23, 16, "A Little Dude");
             aLittleDude.SetColor(new Vector4(150, 120, 0, 255));
             aLittleDude.SetScale(1, 0.7f, 0.5f);
 
-            Monster aBigDude = new Monster(0, 0, 0, 16, 92, 23, 16, 4, "A Big Dude");
+            Monster aBigDude = new Monster(16, 92, 23, 16, "A Big Dude");
             aBigDude.SetColor(new Vector4(150, 120, 0, 255));
             aBigDude.SetScale(2, 1.5f, 2);
 
-            Monster facelessHorror = new Monster(0, 0, 0, 10, 112, 29, 28, 4, "Faceless Horror");
+            Monster facelessHorror = new Monster(10, 112, 29, 28, "Faceless Horror");
             facelessHorror.SetColor(new Vector4(200, 0, 200, 255));
             facelessHorror.SetScale(2, 3, 0.2f);
 
-            Monster thwompus = new Monster(0, 0, 0, 8, 140, 20, 38, 2, "Thwompus");
+            Monster thwompus = new Monster(8, 140, 20, 38, "Thwompus");
             thwompus.SetColor(new Vector4(220, 120, 80, 255));
             thwompus.SetScale(1.5f, 2, 1.5f);
 

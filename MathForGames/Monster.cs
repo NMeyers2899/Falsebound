@@ -12,12 +12,11 @@ namespace Falsebound
         private int _maxHealth;
         private int _attackPower;
         private int _defense;
-        /// <summary>
-        /// The amount of times during a battle a monster can act.
-        /// </summary>
-        private int _actions;
         private float _speed;
 
+        /// <summary>
+        /// How many points of damage the monster can take before it is considered incapacitated.
+        /// </summary>
         public int Health
         {
             get { return _health; }
@@ -30,81 +29,67 @@ namespace Falsebound
             }
         }
 
+        /// <summary>
+        /// The max amount of health a monster can have.
+        /// </summary>
         public int MaxHealth
         {
             get { return _maxHealth; }
         }
 
+        /// <summary>
+        /// The amount of power a monster has when it attacks.
+        /// </summary>
         public int AttackPower
         {
             get { return _attackPower; }
         }
 
+        /// <summary>
+        /// How much damage can be removed from a hit when this monster is attacked.
+        /// </summary>
         public int Defense
         {
             get { return _defense; }
         }
 
-        public int Actions
-        {
-            get { return _actions; }
-        }
-
+        /// <summary>
+        /// How quick the marshal this monster is on the team of will be able to move.
+        /// </summary>
         public float Speed
         {
             get { return _speed; }
         }
 
-        public Monster(float x, float y, float z, float speed, int maxHealth, int attackPower,
-            int defense, int actions, string name = "Monster", Shape shape = Shape.CUBE,
-            Actor parent = null) : base(x, y, z, name, shape, parent)
+        /// <summary>
+        /// The basic constructor for a monster.
+        /// </summary>
+        /// <param name="speed"> The speed that corresponds to the monster. </param>
+        /// <param name="maxHealth"> The max health of the monster. </param>
+        /// <param name="attackPower"> The attack power of the monster. </param>
+        /// <param name="defense"> The defense of the monster. </param>
+        /// <param name="name"> The name of the monster. </param>
+        /// <param name="shape"> The shape that will be drawn to the screen. </param>
+        public Monster(float speed, int maxHealth, int attackPower, int defense, string name = "Monster", 
+            Shape shape = Shape.CUBE) : base(0, 0, 0, name, shape, null)
         {
             _maxHealth = maxHealth;
             _health = _maxHealth;
             _attackPower = attackPower;
             _defense = defense;
-            _actions = actions;
             _speed = speed;
         }
 
+        /// <summary>
+        /// Sets up a basic monster with 0 in all stats.
+        /// </summary>
         public Monster() : base(0, 0, 0, "", Shape.CUBE, null)
         {
             _health = 0;
             _maxHealth = 0;
             _attackPower = 0;
             _defense = 0;
-            _actions = 0;
             _speed = 0;
-        }
-
-        /// <summary>
-        /// This monster goes to deal its damage to the target.
-        /// </summary>
-        /// <param name="target"> The monster being attacked. </param>
-        public void Attack(Monster target)
-        {
-            target.TakeDamage(_attackPower);
-            _actions--;
-        }
-
-        /// <summary>
-        /// This monster reduces its health based on the amount of damage being dealt.
-        /// </summary>
-        /// <param name="damage"> The damage about to be taken that will be reduced. </param>
-        public void TakeDamage(int damage)
-        {
-            if (damage - _defense > _health)
-                _health = 0;
-            else
-                _health -= damage - _defense;
-        }
-
-        /// <summary>
-        /// Changes a monster's opacity to 0 making it invisible.
-        /// </summary>
-        public void Die()
-        {
-            SetColor(new Vector4(0, 0, 0, 0));
         }
 
         /// <summary>
@@ -121,7 +106,6 @@ namespace Falsebound
             lhs.Health = lhs.MaxHealth;
             lhs._attackPower = rhs.AttackPower;
             lhs._defense = rhs.Defense;
-            lhs._actions = rhs.Actions;
             lhs._speed = rhs.Speed;
             lhs.ShapeColor = rhs.ShapeColor;
             lhs.Size = rhs.Size;

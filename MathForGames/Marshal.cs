@@ -13,29 +13,49 @@ namespace Falsebound
         private Vector3 _velocity;
         private Vector3 _destination;
 
+        /// <summary>
+        /// The speed the marshal moves on the field.
+        /// </summary>
         public float Speed
         {
             get { return _speed; }
             set { _speed = value; }
         }
 
+        /// <summary>
+        /// The direction the marshal moves in and the speed at which they move.
+        /// </summary>
         public Vector3 Velocity
         {
             get { return _velocity; }
             set { _velocity = value; }
         }
 
+        /// <summary>
+        /// The destination set by the player that the marshal will move towards.
+        /// </summary>
         public Vector3 Destination
         {
             get { return _destination; }
             set { _destination = value; }
         }
 
+        /// <summary>
+        /// The team of monsters that the marshal has attached to them.
+        /// </summary>
         public Monster[] Team
         {
             get { return _team; }
         }
 
+        /// <summary>
+        /// The basic constructor for a marshal.
+        /// </summary>
+        /// <param name="x"> Their starting position on the x-axis. </param>
+        /// <param name="y"> Their starting position on the y-axis. </param>
+        /// <param name="z"> Their starting position on the z-axis. </param>
+        /// <param name="name"> The name of the marshal. </param>
+        /// <param name="shape"> The shape that will be drawn. </param>
         public Marshal(float x, float y, float z, string name = "Marshal",
             Shape shape = Shape.CUBE) : base(x, y, z, name, shape)
         {

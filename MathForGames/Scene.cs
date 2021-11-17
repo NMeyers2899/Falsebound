@@ -13,28 +13,34 @@ namespace Falsebound
         private Actor[] _actors;
         private Actor[] _UIElements;
 
+        /// <summary>
+        /// The property for the array of actors.
+        /// </summary>
         public Actor[] Actors
         {
             get { return _actors; }
         }
 
+        /// <summary>
+        /// The property for the UIElements in the scene.
+        /// </summary>
         public Actor[] UIElements
         {
             get { return _UIElements; }
         }
 
+        /// <summary>
+        /// The constructor that sets the arrays in the scene to new Actor arrays of zero.
+        /// </summary>
         public Scene()
         {
             _actors = new Actor[0];
             _UIElements = new Actor[0];
         }
 
-        /// <summary>
-        /// Calls the start for every actor within the scene.
-        /// </summary>
-        public virtual void Start()
+        public void Start()
         {
-
+            
         }
 
         /// <summary>
@@ -66,6 +72,10 @@ namespace Falsebound
             }
         }
 
+        /// <summary>
+        /// Calls the update for each UI element in the scene.
+        /// </summary>
+        /// <param name="deltaTime"></param>
         public virtual void UpdateUI(float deltaTime)
         {
             for (int i = 0; i < _UIElements.Length; i++)
@@ -86,16 +96,12 @@ namespace Falsebound
         {
             // Loops through the array to get each character to Draw.
             for (int i = 0; i < _actors.Length; i++)
-            {
-                // If the actor's start function hasn't been called yet...
-                if (!_actors[i].Started)
-                    // ...the current actor calls its Start function.
-                    _actors[i].Start();
-
                 _actors[i].Draw();
-            }
         }
 
+        /// <summary>
+        /// Draws the different UIElements to the screen.
+        /// </summary>
         public virtual void DrawUI()
         {
             for (int i = 0; i < _UIElements.Length; i++)
@@ -109,16 +115,9 @@ namespace Falsebound
         /// </summary>
         public virtual void End()
         {
-            // Loops through the array to get each character to End.
+            // Loops through the array to get each actor to call it's End.
             for (int i = 0; i < _actors.Length; i++)
-            {
-                // If the actor's start function hasn't been called yet...
-                if (!_actors[i].Started)
-                    // ...the current actor calls its Start function.
-                    _actors[i].Start();
-
                 _actors[i].End();
-            }
         }
 
         /// <summary>
@@ -140,17 +139,19 @@ namespace Falsebound
             // Set the old array to the new array.
             _actors = tempArray;
 
+            // If the actor has children...
             if (actor.Children != null)
             {
+                // ...add each of the children to the scene as well.
                 foreach (Actor child in actor.Children)
                     AddActor(child);
             }
         }
 
         /// <summary>
-        /// Appends a new actor to the scenes array of actors.
+        /// Appends a new UI element to the scene.
         /// </summary>
-        /// <param name="actor"> The actor being added to the scene. </param>
+        /// <param name="UI"> The UI element being added to the scene. </param>
         public void AddUIElement(UIText UI)
         {
             // Creates a temporary array.
