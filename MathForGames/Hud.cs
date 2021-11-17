@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Raylib_cs;
+using MathLibrary;
 
 namespace Falsebound
 {
@@ -9,6 +11,10 @@ namespace Falsebound
         private UIText _hudText;
         private Player _player;
 
+        /// <summary>
+        /// A basic constructor for the hud.
+        /// </summary>
+        /// <param name="player"> The player that the user controls and the hud will update them about. </param>
         public Hud(Player player)
         {
             _player = player;

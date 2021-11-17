@@ -71,7 +71,7 @@ namespace Falsebound
             _stopWatch.Start();
 
             // Creates a window using Raylib.
-            Raylib.InitWindow(800, 450, "Math For Games");
+            Raylib.InitWindow(1920, 1250, "Math For Games");
             Raylib.SetTargetFPS(60);
             InitializeCamera();
 

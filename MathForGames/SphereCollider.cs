@@ -10,12 +10,20 @@ namespace Falsebound
     {
         private float _collisionRadius;
 
+        /// <summary>
+        /// The radius at which collision can occur.
+        /// </summary>
         public float CollisionRadius
         {
             get { return _collisionRadius; }
             set { _collisionRadius = value; }
         }
 
+        /// <summary>
+        /// The basic constructor for a sphere collider.
+        /// </summary>
+        /// <param name="collisionRadius"> The collision radius of the collider. </param>
+        /// <param name="owner"> The owner of the collider. </param>
         public SphereCollider(float collisionRadius, Actor owner) : base(owner)
         {
             _collisionRadius = collisionRadius;
